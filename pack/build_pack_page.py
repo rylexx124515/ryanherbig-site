@@ -23,8 +23,8 @@ REELS = [
     ("V2", "Two rooms at a time", "0:18"),
     ("V3", "The great room", "0:12"),
     ("V1", "The details", "0:24"),
-    ("V6", "Fire, water, stone, wood", "0:24"),
 ]
+# V6 (fire, water, stone, wood) dropped by Ryan 2026-09-11: "zooming into nothing". Five reels.
 
 # (name, in this pack). Twelve formats; the six marked are the ones this house got.
 MENU = [
@@ -33,8 +33,8 @@ MENU = [
     ("Guess the price", True),
     ("One room, four angles", True),
     ("The details", True),
-    ("Fire, water, stone, wood", True),
     ("The film, vertical", False),
+    ("Outdoor life", False),
     ("3 things you'd miss in the photos", False),
     ("Coming soon", False),
     ("Open house countdown", False),
@@ -51,8 +51,8 @@ C3 = [("01_cover", "Cover"), ("02_bedroom_1", "Bedroom 1 of 5"), ("03_bedroom_2"
       ("04_bedroom_3", "Bedroom 3 of 5"), ("05_bedroom_4", "Bedroom 4 of 5"), ("06_bedroom_5", "Bedroom 5 of 5"),
       ("07_then_downstairs", "Then downstairs"), ("08_rec_room", "Rec room"), ("09_games_room", "Games room"),
       ("10_home_gym", "Home gym")]
-C4 = [("01_cover", "Cover"), ("02_straight_on", "Straight on"), ("03_from_the_lawn", "From the lawn"),
-      ("04_the_wide_view", "The wide view"), ("05_the_garage_side", "The garage side")]
+# C4 (by day, by dusk) was built 2026-09-11 and dropped the same day: as a static split it made the
+# house small and read like an ad. The slides stay in the client folder; the page shows three.
 
 STORIES = [("01_tomorrow", "Drops tomorrow"), ("02_just_listed", "Just listed"), ("03_open_house", "Open house"), ("04_price", "The price")]
 CARDS = [("01_coming_soon", "Coming soon"), ("02_just_listed", "Just listed"), ("03_open_house", "Open house"),
@@ -78,14 +78,12 @@ SCHED = [
     ("Day -1", "Story: drops tomorrow", "Stories"),
     ("Day 0", "Two rooms at a time, Just Listed carousel, Facebook album", "FB + IG"),
     ("Day 2", "What $1,575,000 gets you", "IG reel"),
-    ("Day 3", "By day, by dusk", "IG carousel"),
     ("Day 4", "Guess the price", "IG + FB"),
     ("Day 5", "Story: open house", "Stories"),
     ("Day 7", "The great room", "IG reel"),
     ("Day 8", "The backyard, five ways", "IG carousel"),
     ("Day 10", "The details", "IG + FB"),
     ("Day 11", "The other half", "FB + IG carousel"),
-    ("Day 12", "Fire, water, stone, wood", "IG reel"),
     ("Day 14", "Story: the price", "Stories"),
     ("If it moves", "Price improved card", "FB + IG"),
     ("When it sells", "Sold, with the numbers", "FB + IG"),
@@ -234,9 +232,9 @@ PAGE = f'''<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FFFFFF">
 <title>The Listing Content Pack · Ryan Herbig</title>
-<meta name="description" content="One listing, twenty pieces, two weeks of posts. Six vertical reels, four carousels, a Facebook album, stories, cards, captions and a posting schedule, built from the listing photos in 48 hours.">
+<meta name="description" content="One listing, eighteen pieces, two weeks of posts. Five vertical reels, three carousels, a Facebook album, stories, cards, captions and a posting schedule, built from the listing photos in 48 hours.">
 <meta property="og:title" content="The Listing Content Pack · Ryan Herbig">
-<meta property="og:description" content="One listing, twenty pieces, two weeks of posts. Built from the listing photos in 48 hours.">
+<meta property="og:description" content="One listing, eighteen pieces, two weeks of posts. Built from the listing photos in 48 hours.">
 <meta property="og:image" content="https://ryanherbig.vercel.app/pack/assets/album/01_photo84.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -266,7 +264,7 @@ PAGE = f'''<!doctype html>
     <p class="kicker mask"><span>The Listing Content Pack &middot; $350 &middot; a worked example</span></p>
     <h1 class="hero-title">
       <span class="mask"><span>One listing.</span></span>
-      <span class="mask"><span><em>Twenty pieces.</em></span></span>
+      <span class="mask"><span><em>Eighteen pieces.</em></span></span>
       <span class="mask"><span>Two weeks of posts.</span></span>
     </h1>
     <div class="hero-row">
@@ -274,12 +272,12 @@ PAGE = f'''<!doctype html>
       captions included. This is the pack for 625 North Talbot Road, Windsor.</p>
       <div class="hero-actions fade">
         <a class="btn btn-primary" href="{MAIL}">Get a pack for your listing</a>
-        <a class="btn btn-ghost" href="#reels">See the six reels</a>
+        <a class="btn btn-ghost" href="#reels">See the reels</a>
       </div>
     </div>
     <dl class="stats fade">
-      <div><dt>Reels</dt><dd><span data-count="6">0</span></dd><span class="stat-sub">12 to 24 seconds, one format each</span></div>
-      <div><dt>Carousels</dt><dd><span data-count="4">0</span></dd><span class="stat-sub">30 slides</span></div>
+      <div><dt>Reels</dt><dd><span data-count="5">0</span></dd><span class="stat-sub">12 to 24 seconds, one format each</span></div>
+      <div><dt>Carousels</dt><dd><span data-count="3">0</span></dd><span class="stat-sub">25 slides</span></div>
       <div><dt>Album</dt><dd><span data-count="12">0</span></dd><span class="stat-sub">photos, in my order</span></div>
       <div><dt>Stories and cards</dt><dd><span data-count="9">0</span></dd><span class="stat-sub">launch week to sold</span></div>
       <div><dt>Turnaround</dt><dd>48h</dd><span class="stat-sub">from the address</span></div>
@@ -291,8 +289,8 @@ PAGE = f'''<!doctype html>
 <section class="section reels" id="reels">
   <div class="container">
     <div class="sec-head reveal">
-      <p class="eyebrow">The six reels</p>
-      <h2>Six reels. Six different formats.</h2>
+      <p class="eyebrow">The reels</p>
+      <h2>Five reels. Five different formats.</h2>
       <p class="sec-sub"><span class="hint-hover">Hover to preview, click to watch with sound.</span><span class="hint-touch">Tap one to watch with sound.</span></p>
     </div>
     <div class="phones">{reel_cards()}
@@ -304,11 +302,11 @@ PAGE = f'''<!doctype html>
 <section class="section carousels" id="carousels">
   <div class="container">
     <div class="sec-head reveal">
-      <p class="eyebrow">The four carousels</p>
+      <p class="eyebrow">The three carousels</p>
       <h2>Swipe through them here.</h2>
-      <p class="sec-sub">Launch day, the feature that sells the house, the rooms nobody posts, and the house at dusk. Captions included.</p>
+      <p class="sec-sub">Launch day, the feature that sells the house, and the rooms nobody posts. Captions included.</p>
     </div>
-    <div class="posts reveal">{carousel("c1", "c1", C1, "Just Listed", "10 slides", CAP["C1 · Just Listed carousel"][1])}{carousel("c2", "c2", C2, "The backyard, five ways", "5 slides", CAP["C2 · The backyard, five ways"][1])}{carousel("c3", "c3", C3, "The other half", "10 slides", CAP["C3 · The other half"][1])}{carousel("c4", "c4", C4, "By day, by dusk", "5 slides", CAP["C4 · By day, by dusk"][1])}
+    <div class="posts reveal">{carousel("c1", "c1", C1, "Just Listed", "10 slides", CAP["C1 · Just Listed carousel"][1])}{carousel("c2", "c2", C2, "The backyard, five ways", "5 slides", CAP["C2 · The backyard, five ways"][1])}{carousel("c3", "c3", C3, "The other half", "10 slides", CAP["C3 · The other half"][1])}
     </div>
   </div>
 </section>
@@ -339,8 +337,8 @@ PAGE = f'''<!doctype html>
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow">The Facebook album</p>
-      <h2>Twelve photos, in my order.</h2>
-      <p class="sec-sub">In the order you would be shown the house, not MLS order.</p>
+      <h2>Twelve photos, one Facebook post.</h2>
+      <p class="sec-sub">Plain photos with the written post, in the order you would be shown the house. Instagram gets the carousels, Facebook gets this.</p>
     </div>
     <div class="shots">{album_grid()}
     </div>
@@ -352,7 +350,7 @@ PAGE = f'''<!doctype html>
   <div class="container menu-grid">
     <div class="sec-head reveal">
       <p class="eyebrow">The menu</p>
-      <h2>Twelve formats. Your house gets the six that fit.</h2>
+      <h2>Twelve formats. Your house gets the five that fit.</h2>
       <p class="sec-sub">Picked for the house, not filled in from a template.</p>
     </div>
     <ul class="menu-list reveal">{menu_rows()}
@@ -393,8 +391,8 @@ PAGE = f'''<!doctype html>
         <p class="plan-terms">From your listing photos</p>
         <p class="plan-desc">Everything on this page, for your listing, back in 48 hours.</p>
         <ul class="plan-list">
-          <li>Six vertical reels</li>
-          <li>Four carousels and a Facebook album</li>
+          <li>Five vertical reels</li>
+          <li>Three carousels and a Facebook album</li>
           <li>Four stories and five cards</li>
           <li>Captions for every piece</li>
           <li>A two-week posting schedule</li>

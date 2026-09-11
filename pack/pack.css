@@ -26,12 +26,12 @@
 }
 .hero-address .dot{width:4px;height:4px;border-radius:50%;background:var(--line);align-self:center}
 
-/* ---------- reels: six phones ---------- */
+/* ---------- reels: five phones (six until 2026-09-11) ---------- */
 .reels{padding-top:96px}
 .phones{
-  display:grid;grid-template-columns:repeat(6,1fr);gap:22px;align-items:start;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:26px;align-items:start;
 }
-@media (min-width:1281px){.phones{width:min(1400px,100vw - 2*var(--gutter));margin-left:calc((100% - min(1400px,100vw - 2*var(--gutter)))/2)}}
+@media (min-width:1281px){.phones{width:min(1240px,100vw - 2*var(--gutter));margin-left:calc((100% - min(1240px,100vw - 2*var(--gutter)))/2)}}
 .phone{cursor:pointer;border-radius:16px;outline-offset:6px;--d:0s;transition-delay:var(--d)}
 .phone:nth-child(even){margin-top:44px}
 .phone-screen{
