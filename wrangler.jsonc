@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers (static assets) config for ryanherbig.ca. No code, no build: the whole
+  // folder is served as static files. Deploy command in the Cloudflare project: npx wrangler deploy
+  "name": "ryanherbig-site",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}
