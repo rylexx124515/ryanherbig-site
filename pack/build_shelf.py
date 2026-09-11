@@ -11,7 +11,7 @@ from PIL import Image, ImageFilter
 HERE = pathlib.Path(__file__).parent
 POSTERS = HERE / "assets" / "posters"
 OUT = HERE.parent / "assets" / "img" / "pack-shelf.jpg"
-ORDER = ["V2", "V5", "V4", "V3", "V1", "V6"]      # posting order, same as the pack page
+ORDER = ["V5", "V4", "V2", "V3", "V1", "V6"]      # same order as the pack page
 
 W, H = 1600, 900
 CW, CH = 236, 420                                  # one phone card

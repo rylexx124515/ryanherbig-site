@@ -130,6 +130,27 @@ Pricing shown on the site (2026-09-09): Listing video $150 pay-if-you-like · Co
 from photos, +$100 posted · Content pack from the realtor's own footage $300 · one vertical reel
 $100 as a footnote. No $200 film anywhere on the site.
 
+## 2026-09-11: the v2 reels and four carousels
+
+- `/pack/` now shows the six **v2 reels** (`clients/Isaac Verge - 625 North Talbot/pack/reels/v2/`,
+  one format each, 12 to 24 s), keyed V1..V6 in `pack/assets/reels/` and `posters/`, listed on the
+  page in posting order (V2, V5, V4, V3, V1, V6) with a 01..06 badge instead of the internal key.
+  The old F1/F2/S1/S2/S12/S3 transcodes were removed from the site; the masters stay in the client folder.
+  Transcode recipe: player copy `scale=720:1280`, x264 CRF 22, AAC 128k 48 kHz, faststart; hover
+  preview `scale=540:960`, CRF 26, no audio; poster = frame at 2.0 s, JPEG q3.
+- **Four carousels**: C1 Just Listed, C2 the backyard, plus the new **C3 The other half** (the five
+  bedrooms counted, then the lower level, 10 slides) and **C4 By day, by dusk** (the same four
+  exteriors by day and at dusk, split on one slide, 5 slides). Built in
+  `clients/.../pack/carousels/C3_other_half/` and `C4_day_dusk/` on the same `slidekit`, rendered
+  with `render.py`, exported here as `pack/assets/c3/` and `c4/` (1080x1350 JPEG q82).
+- Hero says twenty pieces (6 + 4 + 1 + 4 + 5); the stat strip is reels / carousels / album /
+  stories and cards / turnaround. The schedule (page list and the card image) posts the carousels
+  on days 0, 3, 8 and 11. The format menu is twelve plain names, numbered, six marked.
+- `pack/build_shelf.py` rebuilds `assets/img/pack-shelf.jpg` (the home page's pack card) from the
+  posters in posting order; run it whenever the posters change.
+- Home: the pack card and the pricing plan say four carousels; the pricing heading is
+  "One price each. Nothing up front."
+
 ## Three pages (2026-09-09 evening, Ryan's restructure)
 
 The site sells two things, so it is three pages sharing one nav (Listing video · Content pack ·
@@ -142,7 +163,7 @@ Testimonials · About · Get a video) and one `styles.css`:
   The photo-to-video pair and the work carousel moved off the home to `/video/`.
 - `/video/` the horizontal listing video: hero + a featured Talbot player, four "what you get"
   facts, the photo-to-video pair, the carousel of all fifteen films, the three steps, $150.
-- `/pack/` the content pack, below.
+- `/pack/` the content pack, below (six v2 reels and four carousels since 2026-09-11, see above).
 
 `app.js` is shared by `/` and `/video/`; every block guards on its elements (no montage on the
 video page, no carousel on the home). `/pack/` keeps its own `pack.js`.

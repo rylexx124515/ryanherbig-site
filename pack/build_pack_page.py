@@ -15,12 +15,12 @@ import pathlib, html
 HERE = pathlib.Path(__file__).parent
 MAIL = "mailto:its.rylexx@gmail.com?subject=Listing%20Content%20Pack%20for%20[your%20address]"
 
-# The six v2 reels (2026-09-10), one format each, in the order the schedule posts them.
+# The six v2 reels (2026-09-10), one format each, in Ryan's order (2026-09-11: his two favourites first).
 # (key, name, duration). Keys match pack/assets/reels/<key>.mp4 and posters/<key>.jpg.
 REELS = [
-    ("V2", "Two rooms at a time", "0:18"),
     ("V5", "What $1,575,000 gets you", "0:20"),
     ("V4", "Guess the price", "0:18"),
+    ("V2", "Two rooms at a time", "0:18"),
     ("V3", "The great room", "0:12"),
     ("V1", "The details", "0:24"),
     ("V6", "Fire, water, stone, wood", "0:24"),
