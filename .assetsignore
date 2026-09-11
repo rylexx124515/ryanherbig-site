@@ -1,4 +1,9 @@
 .git
 .github
+.gitignore
+.nojekyll
+.wrangler
 wrangler.jsonc
 README.md
+*.py
+__pycache__
