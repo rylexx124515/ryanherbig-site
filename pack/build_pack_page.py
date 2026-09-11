@@ -235,7 +235,7 @@ PAGE = f'''<!doctype html>
 <meta name="description" content="One listing, eighteen pieces, two weeks of posts. Five vertical reels, three carousels, a Facebook album, stories, cards, captions and a posting schedule, built from the listing photos in 48 hours.">
 <meta property="og:title" content="The Listing Content Pack · Ryan Herbig">
 <meta property="og:description" content="One listing, eighteen pieces, two weeks of posts. Built from the listing photos in 48 hours.">
-<meta property="og:image" content="https://ryanherbig.vercel.app/pack/assets/album/01_photo84.jpg">
+<meta property="og:image" content="https://ryanherbig.ca/pack/assets/album/01_photo84.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">

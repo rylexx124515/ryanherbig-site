@@ -130,7 +130,19 @@ Pricing shown on the site (2026-09-09): Listing video $150 pay-if-you-like · Co
 from photos, +$100 posted · Content pack from the realtor's own footage $300 · one vertical reel
 $100 as a footnote. No $200 film anywhere on the site.
 
-## 2026-09-11: the v2 reels and four carousels
+## 2026-09-11, evening: five reels, three carousels (Ryan's review)
+
+- Ryan reordered the reels (his two favourites first: what $1,575,000 gets you, guess the price,
+  two rooms at a time, the great room, the details) and dropped V6 (fire, water, stone, wood).
+  C4 (by day, by dusk) was dropped too. Eighteen pieces. The `.phones` grid is five columns.
+- Three re-masters, all $0: V3 lost its 1.6 s opener (a jump cut into the same wall), V1's room
+  labels now hold across the clip and its detail still and its closer uses the 5 s twilight
+  source, V2's header no longer drops out before the end card. The last one was a toolkit bug:
+  `reels/v2/lib.py` now cuts every segment to an exact frame count and snaps persistent overlay
+  times onto the real timeline. A cut-time checker lives in the session scratchpad notes.
+- Album section renamed "Twelve photos, one Facebook post" with a line saying what it is.
+
+## 2026-09-11: the v2 reels and four carousels (superseded the same evening, see above)
 
 - `/pack/` now shows the six **v2 reels** (`clients/Isaac Verge - 625 North Talbot/pack/reels/v2/`,
   one format each, 12 to 24 s), keyed V1..V6 in `pack/assets/reels/` and `posters/`, listed on the
