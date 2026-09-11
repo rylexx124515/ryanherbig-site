@@ -1,8 +1,11 @@
 {
   // Cloudflare Workers (static assets) config for ryanherbig.ca. No code, no build: the whole
   // folder is served as static files. Deploy command in the Cloudflare project: npx wrangler deploy
+  // Only the custom domain serves the site (Ryan, 2026-09-11): workers.dev and preview URLs are off.
   "name": "ryanherbig-site",
   "compatibility_date": "2026-09-01",
+  "workers_dev": false,
+  "preview_urls": false,
   "assets": {
     "directory": "./",
     "not_found_handling": "404-page",
