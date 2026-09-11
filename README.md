@@ -118,6 +118,18 @@ is in the 2026-08-30 session summary.
 - Offer copy matches the round-8 cold email: $150, pay only if you like it, photos
   pulled by me, ~24h turnaround.
 
+## Live on GitHub Pages while Vercel is blocked (2026-09-09)
+
+**https://rylexx124515.github.io/ryanherbig-site/** serves this folder from the public repo
+`rylexx124515/ryanherbig-site` (built site plus media, ~200 MB). All links on all three pages are
+relative (`video/`, `../pack/`, `../#pricing`) so the same files work under the Pages subfolder
+and on Vercel. To update: rebuild the pack page, then
+`rsync -a --exclude .vercel --exclude __pycache__ --exclude .gitignore ./ <pages-repo>/` and push.
+
+Pricing shown on the site (2026-09-09): Listing video $150 pay-if-you-like · Content pack $350
+from photos, +$100 posted · Content pack from the realtor's own footage $300 · one vertical reel
+$100 as a footnote. No $200 film anywhere on the site.
+
 ## Three pages (2026-09-09 evening, Ryan's restructure)
 
 The site sells two things, so it is three pages sharing one nav (Listing video · Content pack ·

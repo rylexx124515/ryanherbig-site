@@ -15,36 +15,31 @@ import pathlib, html
 HERE = pathlib.Path(__file__).parent
 MAIL = "mailto:its.rylexx@gmail.com?subject=Listing%20Content%20Pack%20for%20[your%20address]"
 
+# The six v2 reels (2026-09-10), one format each, in the order the schedule posts them.
+# (key, name, duration). Keys match pack/assets/reels/<key>.mp4 and posters/<key>.jpg.
 REELS = [
-    ("F1", "The film", "0:28", "The full walkthrough, vertical. Twelve shots, eight rooms labelled, ends on the twilight rise.",
-     "Day becoming dusk, held still", "Bottom left", "96", "Luxury piano", "Eight rooms, the walkthrough"),
-    ("F2", "What $1,575,000 gets you", "0:29", "Price on frame one, then what it buys. Labels say what you get, not where you are.",
-     "Aerial down to the pool", "Top left", "124", "Uplifting", "Patio, games room, rear yard, the house by day"),
-    ("S1", "Guess the price", "0:19", "Hold the question, run eight rooms with one spec each, reveal the price at dusk.",
-     "The great room, question on a panel", "Centred", "148", "Fast", "Eight specs, then the reveal"),
-    ("S2", "The best room in the house", "0:21", "Through the front doors and into the great room, held six beats, then everything it opens onto.",
-     "Through the front doors", "Ranged right, off a red rail", "115", "Upbeat", "The great room and its neighbours"),
-    ("S12", "Summer at 625 North Talbot", "0:21", "Pool, patio, lot, then straight down. The one reel that never goes to dusk.",
-     "The pool at deck level", "Centred low", "120", "Acoustic", "Patio, lot, pool, then the overhead"),
-    ("S3", "The other half", "0:25", "Five bedrooms counted out on five different rooms, then the finished lower level.",
-     "The upper landing", "A numeral on the left margin", "110", "Driving", "Five bedrooms, then downstairs"),
+    ("V2", "Two rooms at a time", "0:18"),
+    ("V5", "What $1,575,000 gets you", "0:20"),
+    ("V4", "Guess the price", "0:18"),
+    ("V3", "The great room", "0:12"),
+    ("V1", "The details", "0:24"),
+    ("V6", "Fire, water, stone, wood", "0:24"),
 ]
 
+# (name, in this pack). Twelve formats; the six marked are the ones this house got.
 MENU = [
-    ("F1", "The film, vertical", "Every listing", True),
-    ("F2", "What $X gets you in [town]", "Every listing", True),
-    ("S1", "Guess the price", "A public price, and a seller who is fine with it", True),
-    ("S2", "Wow-room reveal", "One genuinely standout room", True),
-    ("S3", "Detail reel", "Six or more detail-worthy features", True),
-    ("S4", "3 things you'd miss in the photos", "Any house. This is the plain-house reel", False),
-    ("S5", "Coming soon", "Hired two or three days before it goes live", False),
-    ("S6", "Open house countdown", "An open house date", False),
-    ("S7", "Neighbourhood reel", "B-roll for that town", False),
-    ("S8", "POV walk-in", "A walkthrough, filmed or generated", False),
-    ("S9", "Before and after staging", "Empty rooms. Every staged frame labelled", False),
-    ("S10", "Day to night", "An exterior with real sky", False),
-    ("S11", "How it flows", "A floor plan", False),
-    ("S12", "Outdoor life", "A real outdoor feature", True),
+    ("Two rooms at a time", True),
+    ("What $X gets you in [town]", True),
+    ("Guess the price", True),
+    ("One room, four angles", True),
+    ("The details", True),
+    ("Fire, water, stone, wood", True),
+    ("The film, vertical", False),
+    ("3 things you'd miss in the photos", False),
+    ("Coming soon", False),
+    ("Open house countdown", False),
+    ("Before and after staging", False),
+    ("Day to night", False),
 ]
 
 C1 = [("01_cover", "Cover"), ("02_numbers", "The numbers"), ("03_great_room", "Great room"), ("04_kitchen", "Kitchen"),
@@ -52,6 +47,12 @@ C1 = [("01_cover", "Cover"), ("02_numbers", "The numbers"), ("03_great_room", "G
       ("08_covered_patio", "Covered patio"), ("09_the_backyard", "The backyard"), ("10_cta", "Contact")]
 C2 = [("01_cover", "Cover"), ("02_the_water", "The water"), ("03_where_you_sit", "Where you sit"),
       ("04_the_family_end", "The family end"), ("05_from_above", "From above")]
+C3 = [("01_cover", "Cover"), ("02_bedroom_1", "Bedroom 1 of 5"), ("03_bedroom_2", "Bedroom 2 of 5"),
+      ("04_bedroom_3", "Bedroom 3 of 5"), ("05_bedroom_4", "Bedroom 4 of 5"), ("06_bedroom_5", "Bedroom 5 of 5"),
+      ("07_then_downstairs", "Then downstairs"), ("08_rec_room", "Rec room"), ("09_games_room", "Games room"),
+      ("10_home_gym", "Home gym")]
+C4 = [("01_cover", "Cover"), ("02_straight_on", "Straight on"), ("03_from_the_lawn", "From the lawn"),
+      ("04_the_wide_view", "The wide view"), ("05_the_garage_side", "The garage side")]
 
 STORIES = [("01_tomorrow", "Drops tomorrow"), ("02_just_listed", "Just listed"), ("03_open_house", "Open house"), ("04_price", "The price")]
 CARDS = [("01_coming_soon", "Coming soon"), ("02_just_listed", "Just listed"), ("03_open_house", "Open house"),
@@ -75,14 +76,16 @@ ALBUM = [
 SCHED = [
     ("Day -3", "Coming soon card", "FB + IG"),
     ("Day -1", "Story: drops tomorrow", "Stories"),
-    ("Day 0", "The film, Just Listed carousel, Facebook album", "FB + IG"),
+    ("Day 0", "Two rooms at a time, Just Listed carousel, Facebook album", "FB + IG"),
     ("Day 2", "What $1,575,000 gets you", "IG reel"),
+    ("Day 3", "By day, by dusk", "IG carousel"),
     ("Day 4", "Guess the price", "IG + FB"),
     ("Day 5", "Story: open house", "Stories"),
-    ("Day 7", "The best room in the house", "IG reel"),
+    ("Day 7", "The great room", "IG reel"),
     ("Day 8", "The backyard, five ways", "IG carousel"),
-    ("Day 10", "Summer at 625 North Talbot", "IG + FB"),
-    ("Day 12", "The other half", "IG reel"),
+    ("Day 10", "The details", "IG + FB"),
+    ("Day 11", "The other half", "FB + IG carousel"),
+    ("Day 12", "Fire, water, stone, wood", "IG reel"),
     ("Day 14", "Story: the price", "Stories"),
     ("If it moves", "Price improved card", "FB + IG"),
     ("When it sells", "Sold, with the numbers", "FB + IG"),
@@ -90,30 +93,36 @@ SCHED = [
 
 # (label, Facebook, Instagram). Verbatim from the pack's CAPTIONS.md.
 CAPTIONS = [
-    ("F1 · The film",
-     "The full walk through 625 North Talbot Road. Five bedrooms, five bathrooms with four of them ensuite, and about 5,300 finished square feet including the lower level, on a 100 by 200 foot lot in South Windsor.\n\nStone fireplace in the great room, granite island in the kitchen, and an extra large covered patio looking out at the pool. Triple garage.\n\n$1,575,000. Message me if you want to walk it in person.",
-     "625 North Talbot Road, start to finish.\n5 bed · 5 bath · 5,300 sq ft · $1,575,000\nDM to see it in person.\n#windsorontario #southwindsor #windsorrealestate #yqg"),
-    ("F2 · What $1,575,000 gets you",
+    ("Two rooms at a time",
+     "625 North Talbot Road, two rooms at a time. Five bedrooms, five bathrooms with four of them ensuite, about 5,300 finished square feet including the lower level, on a 100 by 200 foot lot in South Windsor.\n\nStone fireplace in the great room, granite island in the kitchen, in-ground pool and an extra large covered patio out back. Triple garage.\n\n$1,575,000. Message me to see it in person.",
+     "Two rooms at a time. 625 North Talbot Road.\n5 bed · 5 bath · 5,300 sq ft · $1,575,000\nDM to see it in person.\n#justlisted #southwindsor #windsorrealestate #yqg"),
+    ("What $1,575,000 gets you",
      "This is what $1,575,000 buys in South Windsor right now.\n\nFive bedrooms. Five bathrooms, four of them ensuite. About 5,300 finished square feet with the lower level. A 100 by 200 foot lot with an in-ground pool and an extra large covered patio. Triple garage.\n\n625 North Talbot Road. Message me for a private showing.",
      "What $1,575,000 gets you in South Windsor.\nPool, 100x200 lot, 5 bed, 5 bath.\n625 North Talbot Road.\n#southwindsor #windsorrealestate #yqg #justlisted"),
-    ("S1 · Guess the price",
-     "Five bedrooms, five bathrooms, a pool and a 100 by 200 foot lot in South Windsor. Before you get to the end, what would you guess?\n\nAnswer at the end of the video. 625 North Talbot Road.",
+    ("Guess the price",
+     "Five bedrooms, five bathrooms, a pool and a 100 by 200 foot lot in South Windsor. Before the number comes up, what would you guess?\n\nThe answer is at the end. 625 North Talbot Road.",
      "Guess before the end.\n5 bed · 5 bath · pool · 100x200 lot\nSouth Windsor.\n#guesstheprice #windsorrealestate #southwindsor #yqg"),
-    ("S2 · The best room in the house",
-     "Straight through the front doors of 625 North Talbot Road and into the room that sells it. Stone fireplace running floor to ceiling, and the whole main floor opens around it.\n\nFive bedrooms, five bathrooms, about 5,300 finished square feet. $1,575,000.",
-     "Through the front door, into the best room in the house.\n625 North Talbot Road · $1,575,000\n#windsorrealestate #southwindsor #yqg #greatroom"),
-    ("S12 · Summer at 625 North Talbot",
-     "The part of this house you would actually live in from June to September.\n\nIn-ground pool with a walk-in shallow end, an extra large covered patio with ceiling fans, a play structure at the back, and a 100 by 200 foot lot around all of it.\n\n625 North Talbot Road, $1,575,000.",
-     "Summer at 625 North Talbot.\nPool, covered patio, 100x200 lot.\n#southwindsor #windsorrealestate #poolhouse #yqg"),
-    ("S3 · The other half",
-     "Everyone posts the kitchen. Here is the other half of 625 North Talbot Road.\n\nFive bedrooms counted out, then the finished lower level: rec room with a fireplace, a home gym, and another full bathroom. That is where the 5,300 square feet actually is.\n\n$1,575,000.",
-     "You have seen the kitchen. Here is the rest.\n5 bedrooms, then downstairs.\n625 North Talbot Road · $1,575,000\n#windsorrealestate #southwindsor #yqg"),
+    ("The great room",
+     "One room, four angles, twelve seconds. The great room at 625 North Talbot Road: a stone fireplace wall running floor to ceiling, and the whole main floor opening around it.\n\nFive bedrooms, five bathrooms, about 5,300 finished square feet. $1,575,000.",
+     "The best room in the house, in twelve seconds.\n625 North Talbot Road · $1,575,000\n#windsorrealestate #southwindsor #yqg #greatroom"),
+    ("The details",
+     "The small things at 625 North Talbot Road. The pendants over the granite island, the stone fireplace up close, the chandelier in the ensuite, the piano room, the 625 on the stone out front.\n\nFive bedrooms, five bathrooms, in-ground pool, 100 by 200 foot lot. $1,575,000.",
+     "Look closer. 625 North Talbot Road.\n$1,575,000 · South Windsor\n#windsorrealestate #southwindsor #yqg #details"),
+    ("Fire, water, stone, wood",
+     "The fireplace, the pool, the stone, the hardwood. 625 North Talbot Road, cut by what the house is made of instead of room by room.\n\nFive bedrooms, five bathrooms, about 5,300 finished square feet on a 100 by 200 foot lot in South Windsor. $1,575,000.",
+     "Fire, water, stone, wood.\n625 North Talbot Road · $1,575,000\n#southwindsor #windsorrealestate #yqg"),
     ("C1 · Just Listed carousel",
      "Just listed at 625 North Talbot Road, Windsor. $1,575,000.\n\nFive bedrooms. Five bathrooms, four of them ensuite. About 5,300 finished square feet including a finished lower level with a rec room, a gym and a full bath. Brick and stone, triple garage.\n\nOutside, an in-ground pool and an extra large covered patio on a 100 by 200 foot lot.\n\nSwipe through, and message me if you want to see it.",
      "Just listed. 625 North Talbot Road, South Windsor.\n$1,575,000 · 5 bed · 5 bath · 5,300 sq ft · 100x200 lot\nSwipe through. DM to book a showing.\n#justlisted #southwindsor #windsorrealestate #yqg"),
     ("C2 · The backyard, five ways",
      "Five angles on the reason someone will buy this house.\n\nIn-ground pool with a walk-in shallow end and a full safety fence. Extra large covered patio with ceiling fans. Play structure at the back. All of it on a 100 by 200 foot lot.\n\n625 North Talbot Road, $1,575,000.",
      "The backyard, five ways.\nPool, covered patio, playground, 100x200 lot.\n625 North Talbot Road.\n#southwindsor #windsorrealestate #backyardgoals #yqg"),
+    ("C3 · The other half",
+     "Everyone posts the kitchen. Here is the other half of 625 North Talbot Road.\n\nFive bedrooms, counted out one by one, then the finished lower level: a rec room with a stone fireplace, a games room, a home gym and a full bath. That is where the 5,300 square feet actually is.\n\n$1,575,000. Message me to walk it.",
+     "You have seen the kitchen. Here is the rest.\n5 bedrooms, then downstairs.\n625 North Talbot Road · $1,575,000\n#windsorrealestate #southwindsor #yqg"),
+    ("C4 · By day, by dusk",
+     "The same house, photographed twice. 625 North Talbot Road by day and at dusk, from the same four spots.\n\nBrick and stone, triple garage, on a 100 by 200 foot lot in South Windsor. Five bedrooms, five bathrooms, in-ground pool. $1,575,000.",
+     "By day, by dusk. Swipe.\n625 North Talbot Road, South Windsor.\n#southwindsor #windsorrealestate #twilight #yqg"),
     ("Card · Coming soon",
      "Something is coming on North Talbot. Five bedrooms, a pool, and a 100 by 200 foot lot in South Windsor. Photos and the full tour this week.",
      "Coming soon in South Windsor.\n5 bed · pool · 100x200 lot\n#comingsoon #southwindsor #yqg"),
@@ -132,17 +141,18 @@ CAPTIONS = [
 ]
 
 e = html.escape
+CAP = {label: (fb, ig) for label, fb, ig in CAPTIONS}
 
 
 def reel_cards():
     out = []
-    for i, (k, name, dur, blurb, *_rest) in enumerate(REELS):
+    for i, (k, name, dur) in enumerate(REELS):
         out.append(f'''
-      <article class="phone reveal" style="--d:{i * 0.07:.2f}s" data-video="assets/reels/{k}.mp4" data-portrait="1" data-title="{e(k)} · {e(name)}" tabindex="0" role="button" aria-label="Play {e(name)}">
+      <article class="phone reveal" style="--d:{i * 0.07:.2f}s" data-video="assets/reels/{k}.mp4" data-portrait="1" data-title="{e(name)}" tabindex="0" role="button" aria-label="Play {e(name)}">
         <div class="phone-screen">
           <img src="assets/posters/{k}.jpg" alt="" width="720" height="1280" loading="lazy">
           <video muted playsinline loop preload="none" data-src="assets/reels/{k}_540.mp4"></video>
-          <span class="phone-key">{k}</span>
+          <span class="phone-key">{i + 1:02d}</span>
           <span class="phone-dur">{dur}</span>
         </div>
         <div class="phone-meta">
@@ -150,13 +160,6 @@ def reel_cards():
         </div>
       </article>''')
     return "".join(out)
-
-
-def apart_rows():
-    return "".join(
-        f'<tr><td class="k">{k}</td><td class="n">{e(name)}</td><td>{e(opens)}</td><td>{e(typ)}</td>'
-        f'<td class="num">{bpm} BPM</td><td>{e(track)}</td><td class="soft">{e(carries)}</td></tr>'
-        for k, name, dur, blurb, opens, typ, bpm, track, carries in REELS)
 
 
 def carousel(cid, folder, slides, title, sub, caption):
@@ -199,9 +202,9 @@ def album_grid():
 
 def menu_rows():
     return "".join(
-        f'<li class="menu-row{" is-on" if on else ""}"><span class="menu-key">{k}</span><span class="menu-name">{e(name)}</span>'
+        f'<li class="menu-row{" is-on" if on else ""}"><span class="menu-key">{i + 1:02d}</span><span class="menu-name">{e(name)}</span>'
         f'<span class="menu-tag">{"In this pack" if on else ""}</span></li>'
-        for k, name, need, on in MENU)
+        for i, (name, on) in enumerate(MENU))
 
 
 def sched_rows():
@@ -231,9 +234,9 @@ PAGE = f'''<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FFFFFF">
 <title>The Listing Content Pack · Ryan Herbig</title>
-<meta name="description" content="One listing, eighteen pieces, two weeks of posts. Six vertical reels, two carousels, a Facebook album, stories, cards, captions and a posting schedule, built from the listing photos in 48 hours.">
+<meta name="description" content="One listing, twenty pieces, two weeks of posts. Six vertical reels, four carousels, a Facebook album, stories, cards, captions and a posting schedule, built from the listing photos in 48 hours.">
 <meta property="og:title" content="The Listing Content Pack · Ryan Herbig">
-<meta property="og:description" content="One listing, eighteen pieces, two weeks of posts. Built from the listing photos in 48 hours.">
+<meta property="og:description" content="One listing, twenty pieces, two weeks of posts. Built from the listing photos in 48 hours.">
 <meta property="og:image" content="https://ryanherbig.vercel.app/pack/assets/album/01_photo84.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -263,22 +266,22 @@ PAGE = f'''<!doctype html>
     <p class="kicker mask"><span>The Listing Content Pack &middot; $350 &middot; a worked example</span></p>
     <h1 class="hero-title">
       <span class="mask"><span>One listing.</span></span>
-      <span class="mask"><span><em>Eighteen pieces.</em></span></span>
+      <span class="mask"><span><em>Twenty pieces.</em></span></span>
       <span class="mask"><span>Two weeks of posts.</span></span>
     </h1>
     <div class="hero-row">
-      <p class="hero-sub fade">Everything one listing needs on social for two weeks, made from its photos in 48 hours.
-      This is the pack for 625 North Talbot Road, Windsor.</p>
+      <p class="hero-sub fade">Everything one listing needs on social for two weeks, made from its photos in 48 hours,
+      captions included. This is the pack for 625 North Talbot Road, Windsor.</p>
       <div class="hero-actions fade">
         <a class="btn btn-primary" href="{MAIL}">Get a pack for your listing</a>
         <a class="btn btn-ghost" href="#reels">See the six reels</a>
       </div>
     </div>
     <dl class="stats fade">
-      <div><dt>Reels</dt><dd><span data-count="6">0</span></dd><span class="stat-sub">19 to 29 seconds each</span></div>
-      <div><dt>Stills</dt><dd><span data-count="12">0</span></dd><span class="stat-sub">carousels, stories, cards</span></div>
+      <div><dt>Reels</dt><dd><span data-count="6">0</span></dd><span class="stat-sub">12 to 24 seconds, one format each</span></div>
+      <div><dt>Carousels</dt><dd><span data-count="4">0</span></dd><span class="stat-sub">30 slides</span></div>
       <div><dt>Album</dt><dd><span data-count="12">0</span></dd><span class="stat-sub">photos, in my order</span></div>
-      <div><dt>Captions</dt><dd>All</dd><span class="stat-sub">Facebook and Instagram</span></div>
+      <div><dt>Stories and cards</dt><dd><span data-count="9">0</span></dd><span class="stat-sub">launch week to sold</span></div>
       <div><dt>Turnaround</dt><dd>48h</dd><span class="stat-sub">from the address</span></div>
     </dl>
   </div>
@@ -289,7 +292,7 @@ PAGE = f'''<!doctype html>
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow">The six reels</p>
-      <h2>Six reels. No two open on the same shot.</h2>
+      <h2>Six reels. Six different formats.</h2>
       <p class="sec-sub"><span class="hint-hover">Hover to preview, click to watch with sound.</span><span class="hint-touch">Tap one to watch with sound.</span></p>
     </div>
     <div class="phones">{reel_cards()}
@@ -301,11 +304,11 @@ PAGE = f'''<!doctype html>
 <section class="section carousels" id="carousels">
   <div class="container">
     <div class="sec-head reveal">
-      <p class="eyebrow">The two carousels</p>
+      <p class="eyebrow">The four carousels</p>
       <h2>Swipe through them here.</h2>
-      <p class="sec-sub">One for launch day, one for the feature that sells the house. Captions included.</p>
+      <p class="sec-sub">Launch day, the feature that sells the house, the rooms nobody posts, and the house at dusk. Captions included.</p>
     </div>
-    <div class="posts reveal">{carousel("c1", "c1", C1, "Just Listed", "10 slides", CAPTIONS[6][2])}{carousel("c2", "c2", C2, "The backyard, five ways", "5 slides", CAPTIONS[7][2])}
+    <div class="posts reveal">{carousel("c1", "c1", C1, "Just Listed", "10 slides", CAP["C1 · Just Listed carousel"][1])}{carousel("c2", "c2", C2, "The backyard, five ways", "5 slides", CAP["C2 · The backyard, five ways"][1])}{carousel("c3", "c3", C3, "The other half", "10 slides", CAP["C3 · The other half"][1])}{carousel("c4", "c4", C4, "By day, by dusk", "5 slides", CAP["C4 · By day, by dusk"][1])}
     </div>
   </div>
 </section>
@@ -350,7 +353,7 @@ PAGE = f'''<!doctype html>
     <div class="sec-head reveal">
       <p class="eyebrow">The menu</p>
       <h2>Twelve formats. Your house gets the six that fit.</h2>
-      <p class="sec-sub">Two are in every pack. The other four are picked to fit the house.</p>
+      <p class="sec-sub">Picked for the house, not filled in from a template.</p>
     </div>
     <ul class="menu-list reveal">{menu_rows()}
     </ul>
@@ -391,7 +394,7 @@ PAGE = f'''<!doctype html>
         <p class="plan-desc">Everything on this page, for your listing, back in 48 hours.</p>
         <ul class="plan-list">
           <li>Six vertical reels</li>
-          <li>Two carousels and a Facebook album</li>
+          <li>Four carousels and a Facebook album</li>
           <li>Four stories and five cards</li>
           <li>Captions for every piece</li>
           <li>A two-week posting schedule</li>
