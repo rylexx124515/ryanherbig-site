@@ -160,14 +160,14 @@
   });
 
   /* ---------- phones: four quotes / three videos up front, the rest behind one tap ---------- */
-  const fold = (btnId, listSel) => {
+  const fold = (btnId, listSel, always) => {
     const btn = document.getElementById(btnId), list = document.querySelector(listSel);
-    if (!btn || !list || !phone) return;
+    if (!btn || !list || (!phone && !always)) return;
     list.classList.add('is-folded');
     btn.hidden = false;
     btn.addEventListener('click', () => { list.classList.remove('is-folded'); btn.hidden = true; });
   };
-  fold('quotesMore', '.quotes');
+  fold('quotesMore', '.quotes', true);
   fold('workMore', '#carTrack');
 
   /* ---------- player ---------- */

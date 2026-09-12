@@ -22,9 +22,9 @@
   <nav class="topnav">
     <a href="./" aria-current="page">Listing video</a>
     <a href="../pack/">Content pack</a>
-    <a href="../#pricing">Pricing</a>
+    <a class="nav-pricing" href="#pricing">Pricing</a>
     <a href="../#clients">Testimonials</a>
-    <a class="nav-cta" href="mailto:its.rylexx@gmail.com?subject=Listing%20video">Get a video</a>
+    <a class="nav-cta" href="mailto:its.rylexx@gmail.com?subject=Listing%20video&amp;body=Address%3A%0A%0AMLS%20link%20(if%20you%20have%20one)%3A%0A%0AName%20and%20brokerage%3A%0A">Get a video</a>
   </nav>
 </header>
 
@@ -41,10 +41,9 @@
     </h1>
     <div class="hero-row">
       <p class="hero-sub fade">A cinematic, drone-style video of the house, cut from the photos your listing already has.
-      Your branding on the front and the end, the room labelled on every shot, sized for MLS, Instagram and Facebook.
-      Back to you in about a day.</p>
+      About 30 seconds, back to you in about a day.</p>
       <div class="hero-actions fade">
-        <a class="btn btn-primary" href="mailto:its.rylexx@gmail.com?subject=Listing%20video%20for%20[your%20address]">Get one for your listing</a>
+        <a class="btn btn-primary" href="mailto:its.rylexx@gmail.com?subject=Listing%20video&amp;body=Address%3A%0A%0AMLS%20link%20(if%20you%20have%20one)%3A%0A%0AName%20and%20brokerage%3A%0A">Email me an address</a>
         <a class="btn btn-ghost" href="#work">See the work</a>
       </div>
     </div>
@@ -61,12 +60,12 @@
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow">What you get</p>
-      <h2>Built from the photos. Finished like a film.</h2>
+      <h2>Built from the photos. Finished properly.</h2>
     </div>
     <div class="facts reveal">
       <div class="fact"><h3>Your branding</h3><p>Your name, brokerage and headshot on the title and the end card, in your colours.</p></div>
       <div class="fact"><h3>Every room labelled</h3><p>A quiet corner label on each shot, so a buyer always knows where they are.</p></div>
-      <div class="fact"><h3>Three sizes</h3><p>Sized for MLS, Instagram and Facebook. Music included, nothing to credit.</p></div>
+      <div class="fact"><h3>Ready to post</h3><p>Sized for MLS, Instagram and Facebook. Music included, nothing to credit.</p></div>
       <div class="fact"><h3>About a day</h3><p>Send the address in the afternoon and the video is usually in your inbox the next day.</p></div>
     </div>
 
@@ -79,7 +78,7 @@
       </figure>
       <figure class="duo-side">
         <div class="duo-media">
-          <video autoplay muted loop playsinline preload="metadata" poster="../assets/seam/02-photo.jpg">
+          <video autoplay muted loop playsinline preload="metadata" poster="../assets/seam/02-film_poster.jpg">
             <source src="../assets/seam/02-film.mp4" type="video/mp4">
           </video>
           <span class="duo-tag duo-tag-film">The delivered video</span>
@@ -96,19 +95,27 @@
     <div class="sec-head sec-head-split reveal">
       <div>
         <p class="eyebrow">The work</p>
-        <h2>All fifteen, so far.</h2>
+        <h2>All seventeen, so far.</h2>
       </div>
       <div class="car-nav">
         <button class="car-btn" id="carPrev" aria-label="Previous video">&#8592;</button>
         <button class="car-btn" id="carNext" aria-label="Next video">&#8594;</button>
       </div>
     </div>
-    <p class="work-sub reveal">Fifteen videos for eleven Windsor-Essex realtors.
+    <p class="work-sub reveal">Seventeen videos for twelve Windsor-Essex realtors.
     <span class="hint-hover">Hover to preview, click to watch.</span><span class="hint-touch">Tap one to watch.</span></p>
   </div>
 
   <div class="car reveal">
     <div class="car-track container" id="carTrack">
+      <article class="card" data-video="../assets/film/forest.mp4" data-title="264 Forest Street" tabindex="0" role="button" aria-label="Play 264 Forest Street">
+        <div class="card-media"><img src="../assets/poster/forest.jpg" alt="" loading="lazy" width="1280" height="720"><video muted playsinline loop preload="none" data-src="../assets/film/forest.mp4"></video></div>
+        <div class="card-meta"><span class="card-addr">264 Forest Street</span><span class="card-dur">0:32</span><span class="card-who">Tim Cummings, Realty House</span></div>
+      </article>
+      <article class="card" data-video="../assets/film/riverside.mp4" data-title="13110 Riverside Drive East" tabindex="0" role="button" aria-label="Play 13110 Riverside Drive East">
+        <div class="card-media"><img src="../assets/poster/riverside.jpg" alt="" loading="lazy" width="1280" height="720"><video muted playsinline loop preload="none" data-src="../assets/film/riverside.mp4"></video></div>
+        <div class="card-meta"><span class="card-addr">13110 Riverside Drive East</span><span class="card-dur">0:28</span><span class="card-who">Gavin Kooner, Deerbrook Realty</span></div>
+      </article>
       <article class="card" data-video="../assets/film/emerald.mp4" data-title="30 Emerald Lane" tabindex="0" role="button" aria-label="Play 30 Emerald Lane">
         <div class="card-media"><img src="../assets/poster/emerald.jpg" alt="" loading="lazy" width="1280" height="720"><video muted playsinline loop preload="none" data-src="../assets/film/emerald.mp4"></video></div>
         <div class="card-meta"><span class="card-addr">30 Emerald Lane</span><span class="card-dur">0:27</span><span class="card-who">Rene Thrasher, RE/MAX Preferred Realty</span></div>
@@ -171,9 +178,36 @@
       </article>
     </div>
   </div>
-  <div class="container"><button class="btn btn-ghost work-more" id="workMore" type="button" hidden>Show the rest</button></div>
+  <div class="container"><button class="fold-link work-more" id="workMore" type="button" hidden>Show the other 14</button></div>
 </section>
 
+
+
+<!-- ============================ THREE QUOTES ============================ -->
+<section class="section clients clients-mini" id="clients">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Clients</p>
+      <h2>In their words.</h2>
+    </div>
+    <div class="quotes quotes-3">
+      <blockquote class="quote reveal q-s">
+        <p>"Ryan did a great job, very professional looking. He showcased the right features on my listing.
+        Timely, courteous and professional."</p>
+        <footer><span class="q-name">Rene Thrasher</span><span class="q-brok">RE/MAX Preferred Realty</span></footer>
+      </blockquote>
+      <blockquote class="quote reveal q-xs">
+        <p>"Excellent work, very professionally done."</p>
+        <footer><span class="q-name">Brandy Robertson</span><span class="q-brok">O'Brien Robertson Realty</span></footer>
+      </blockquote>
+      <blockquote class="quote reveal q-xs">
+        <p>"Looks great. Will definitely keep in touch for future listings."</p>
+        <footer><span class="q-name">Kelsey Quick</span><span class="q-brok">RE/MAX Preferred Realty</span></footer>
+      </blockquote>
+    </div>
+    <p class="quotes-link reveal"><a href="../#clients">All eight, on the home page</a></p>
+  </div>
+</section>
 
 <!-- ============================ PRICING ============================ -->
 <section class="section pricing" id="pricing">
@@ -195,7 +229,8 @@
           <li>Back in about a day</li>
         </ul>
         <p class="plan-addon">Already have drone or video clips from your photographer? Send them along and they go in.</p>
-        <a class="btn btn-primary" href="mailto:its.rylexx@gmail.com?subject=Listing%20video%20for%20[your%20address]">Get a video</a>
+        <a class="btn btn-primary" href="mailto:its.rylexx@gmail.com?subject=Listing%20video&amp;body=Address%3A%0A%0AMLS%20link%20(if%20you%20have%20one)%3A%0A%0AName%20and%20brokerage%3A%0A">Email me an address</a>
+        <span class="mail-line">or write to its.rylexx@gmail.com</span>
       </article>
       <div class="plan-side reveal">
         <p class="eyebrow">How it works</p>

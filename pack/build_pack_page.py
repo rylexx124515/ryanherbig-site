@@ -13,7 +13,8 @@ Run: python3 build_pack_page.py
 import pathlib, html
 
 HERE = pathlib.Path(__file__).parent
-MAIL = "mailto:its.rylexx@gmail.com?subject=Listing%20Content%20Pack%20for%20[your%20address]"
+MAIL = "mailto:its.rylexx@gmail.com?subject=Content%20pack&amp;body=Address%3A%0A%0AMLS%20link%20(if%20you%20have%20one)%3A%0A%0AName%20and%20brokerage%3A%0A"
+MAIL300 = "mailto:its.rylexx@gmail.com?subject=Content%20pack%20from%20my%20footage&amp;body=Address%3A%0A%0ALink%20to%20your%20footage%20(Drive%2C%20Dropbox%2C%20anything)%3A%0A%0AName%20and%20brokerage%3A%0A"
 
 # The six v2 reels (2026-09-10), one format each, in Ryan's order (2026-09-11: his two favourites first).
 # (key, name, duration). Keys match pack/assets/reels/<key>.mp4 and posters/<key>.jpg.
@@ -29,11 +30,11 @@ REELS = [
 # (name, in this pack). Twelve formats; the six marked are the ones this house got.
 MENU = [
     ("Two rooms at a time", True),
-    ("What $X gets you in [town]", True),
+    ("What the price gets you", True),
     ("Guess the price", True),
     ("One room, four angles", True),
     ("The details", True),
-    ("The film, vertical", False),
+    ("The listing video, vertical", False),
     ("Outdoor life", False),
     ("3 things you'd miss in the photos", False),
     ("Coming soon", False),
@@ -74,9 +75,9 @@ ALBUM = [
 ]
 
 SCHED = [
-    ("Day -3", "Coming soon card", "FB + IG"),
-    ("Day -1", "Story: drops tomorrow", "Stories"),
-    ("Day 0", "Two rooms at a time, Just Listed carousel, Facebook album", "FB + IG"),
+    ("3 days before", "Coming soon graphic", "FB + IG"),
+    ("1 day before", "Story: drops tomorrow", "Stories"),
+    ("Listing day", "Two rooms at a time, Just Listed carousel, Facebook album", "FB + IG"),
     ("Day 2", "What $1,575,000 gets you", "IG reel"),
     ("Day 4", "Guess the price", "IG + FB"),
     ("Day 5", "Story: open house", "Stories"),
@@ -85,8 +86,8 @@ SCHED = [
     ("Day 10", "The details", "IG + FB"),
     ("Day 11", "The other half", "FB + IG carousel"),
     ("Day 14", "Story: the price", "Stories"),
-    ("If it moves", "Price improved card", "FB + IG"),
-    ("When it sells", "Sold, with the numbers", "FB + IG"),
+    ("If the price changes", "Price improved graphic", "FB + IG"),
+    ("When it sells", "Sold graphic, with the numbers", "FB + IG"),
 ]
 
 # (label, Facebook, Instagram). Verbatim from the pack's CAPTIONS.md.
@@ -250,7 +251,7 @@ PAGE = f'''<!doctype html>
   <nav class="topnav">
     <a href="../video/">Listing video</a>
     <a href="./" aria-current="page">Content pack</a>
-    <a href="../#pricing">Pricing</a>
+    <a class="nav-pricing" href="#pricing">Pricing</a>
     <a href="../#clients">Testimonials</a>
     <a class="nav-cta" href="{MAIL}">Get a pack</a>
   </nav>
@@ -261,7 +262,7 @@ PAGE = f'''<!doctype html>
 <!-- ============================ HERO ============================ -->
 <section class="hero pack-hero">
   <div class="container">
-    <p class="kicker mask"><span>The Listing Content Pack &middot; $350 &middot; a worked example</span></p>
+    <p class="kicker mask"><span>The content pack &middot; $350 &middot; nothing up front</span></p>
     <h1 class="hero-title">
       <span class="mask"><span>One listing.</span></span>
       <span class="mask"><span><em>Eighteen pieces.</em></span></span>
@@ -269,17 +270,17 @@ PAGE = f'''<!doctype html>
     </h1>
     <div class="hero-row">
       <p class="hero-sub fade">Everything one listing needs on social for two weeks, made from its photos in 48 hours,
-      captions included. This is the pack for 625 North Talbot Road, Windsor.</p>
+      captions included. This is the real pack for 625 North Talbot Road, Windsor. You see yours finished before you pay.</p>
       <div class="hero-actions fade">
         <a class="btn btn-primary" href="{MAIL}">Get a pack for your listing</a>
         <a class="btn btn-ghost" href="#reels">See the reels</a>
       </div>
     </div>
     <dl class="stats fade">
-      <div><dt>Reels</dt><dd><span data-count="5">0</span></dd><span class="stat-sub">12 to 24 seconds, one format each</span></div>
+      <div><dt>Reels</dt><dd><span data-count="5">0</span></dd><span class="stat-sub">12 to 24 seconds each</span></div>
       <div><dt>Carousels</dt><dd><span data-count="3">0</span></dd><span class="stat-sub">25 slides</span></div>
-      <div><dt>Album</dt><dd><span data-count="12">0</span></dd><span class="stat-sub">photos, in my order</span></div>
-      <div><dt>Stories and cards</dt><dd><span data-count="9">0</span></dd><span class="stat-sub">launch week to sold</span></div>
+      <div><dt>Facebook album</dt><dd><span data-count="12">0</span></dd><span class="stat-sub">photos, one post</span></div>
+      <div><dt>Stories and graphics</dt><dd><span data-count="9">0</span></dd><span class="stat-sub">coming soon to sold</span></div>
       <div><dt>Turnaround</dt><dd>48h</dd><span class="stat-sub">from the address</span></div>
     </dl>
   </div>
@@ -311,14 +312,82 @@ PAGE = f'''<!doctype html>
   </div>
 </section>
 
+
+<!-- ============================ THREE QUOTES ============================ -->
+<section class="section clients clients-mini" id="clients">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Clients</p>
+      <h2>In their words.</h2>
+    </div>
+    <div class="quotes quotes-3">
+      <blockquote class="quote reveal q-s">
+        <p>"Ryan did a great job, very professional looking. He showcased the right features on my listing.
+        Timely, courteous and professional."</p>
+        <footer><span class="q-name">Rene Thrasher</span><span class="q-brok">RE/MAX Preferred Realty</span></footer>
+      </blockquote>
+      <blockquote class="quote reveal q-xs">
+        <p>"Excellent work, very professionally done."</p>
+        <footer><span class="q-name">Brandy Robertson</span><span class="q-brok">O'Brien Robertson Realty</span></footer>
+      </blockquote>
+      <blockquote class="quote reveal q-xs">
+        <p>"Looks great. Will definitely keep in touch for future listings."</p>
+        <footer><span class="q-name">Kelsey Quick</span><span class="q-brok">RE/MAX Preferred Realty</span></footer>
+      </blockquote>
+    </div>
+    <p class="quotes-link reveal"><a href="../#clients">All eight, on the home page</a></p>
+  </div>
+</section>
+
+<!-- ============================ PRICING ============================ -->
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Pricing</p>
+      <h2>One pack. Two ways to make it.</h2>
+    </div>
+    <div class="plans plans-2">
+      <article class="plan is-featured reveal">
+        <p class="plan-name">Content pack</p>
+        <p class="plan-price">$350</p>
+        <p class="plan-terms">Nothing up front, from your listing photos</p>
+        <p class="plan-desc">Everything on this page, for your listing, back in 48 hours.</p>
+        <ul class="plan-list">
+          <li>Five vertical reels</li>
+          <li>Three carousels and a Facebook album</li>
+          <li>Four Instagram stories and five ready to post graphics</li>
+          <li>Captions for every piece</li>
+          <li>A two-week posting schedule</li>
+        </ul>
+        <p class="plan-addon">+ $100 and I post it all for you, on the schedule.</p>
+        <a class="btn btn-primary" href="{MAIL}">Get a pack</a>
+        <span class="mail-line">or write to its.rylexx@gmail.com</span>
+      </article>
+      <article class="plan reveal">
+        <p class="plan-name">Content pack, from your footage</p>
+        <p class="plan-price">$300</p>
+        <p class="plan-terms">Already have video and drone clips</p>
+        <p class="plan-desc">The same pack, cut from the footage your photographer already shot.</p>
+        <ul class="plan-list">
+          <li>Everything in the content pack, cut from your clips</li>
+          <li>Back in 48 hours, same $100 posting add-on</li>
+        </ul>
+        <a class="btn btn-ghost" href="{MAIL300}">Get the $300 pack</a>
+      </article>
+    </div>
+    <p class="plans-note reveal">Just want one vertical video? $100, any format from <a href="#menu">the menu below</a>. Want the horizontal listing video? <a href="../video/">That is $150, on its own page.</a></p>
+  </div>
+</section>
+
+
 <!-- ============================ STILLS ============================ -->
 <section class="section stills" id="stills">
   <div class="container">
     <div class="sec-head sec-head-split reveal">
       <div>
-        <p class="eyebrow">Stories and cards</p>
-        <h2>Four stories. Five cards.</h2>
-        <p class="sec-sub">Stories for launch week. Cards for the whole life of the listing.</p>
+        <p class="eyebrow">Stories and graphics</p>
+        <h2>Four stories. Five graphics.</h2>
+        <p class="sec-sub">Stories for launch week. Graphics for the rest of it: coming soon, just listed, open house, price improved, sold.</p>
       </div>
       <div class="car-nav">
         <button class="car-btn" id="railPrev" aria-label="Scroll back">&#8592;</button>
@@ -376,47 +445,6 @@ PAGE = f'''<!doctype html>
   </div>
 </section>
 
-
-<!-- ============================ PRICING ============================ -->
-<section class="section pricing" id="pricing">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow">Pricing</p>
-      <h2>One pack. Two ways to make it.</h2>
-    </div>
-    <div class="plans plans-2">
-      <article class="plan is-featured reveal">
-        <p class="plan-name">Content pack</p>
-        <p class="plan-price">$350</p>
-        <p class="plan-terms">From your listing photos</p>
-        <p class="plan-desc">Everything on this page, for your listing, back in 48 hours.</p>
-        <ul class="plan-list">
-          <li>Five vertical reels</li>
-          <li>Three carousels and a Facebook album</li>
-          <li>Four stories and five cards</li>
-          <li>Captions for every piece</li>
-          <li>A two-week posting schedule</li>
-        </ul>
-        <p class="plan-addon">+ $100 and I post it all for you, on the schedule.</p>
-        <a class="btn btn-primary" href="{MAIL}">Get a pack</a>
-      </article>
-      <article class="plan reveal">
-        <p class="plan-name">Content pack, from your footage</p>
-        <p class="plan-price">$300</p>
-        <p class="plan-terms">Already have video and drone clips</p>
-        <p class="plan-desc">The same pack, cut from the footage your photographer already shot.</p>
-        <ul class="plan-list">
-          <li>Everything in the content pack</li>
-          <li>Your real footage, nothing generated</li>
-          <li>Back in 48 hours</li>
-          <li>Same posting add-on</li>
-        </ul>
-        <a class="btn btn-ghost" href="mailto:its.rylexx@gmail.com?subject=Content%20pack%20from%20my%20footage%20for%20[your%20address]">Send me your footage</a>
-      </article>
-    </div>
-    <p class="plans-note reveal">Just want one vertical reel? $100, any format from the menu above. Want the horizontal listing video? <a href="../video/">That is $150, on its own page.</a></p>
-  </div>
-</section>
 
 </main>
 
