@@ -130,6 +130,36 @@ Pricing shown on the site (2026-09-09): Listing video $150 pay-if-you-like · Co
 from photos, +$100 posted · Content pack from the realtor's own footage $300 · one vertical reel
 $100 as a footnote. No $200 film anywhere on the site.
 
+## 2026-09-14: five patterns taken from the competitors
+
+Five live competitor sites were screenshotted and compared against this one (Coffee & Contracts,
+Luxury Presence, Curaytor, PorchLyte, Lighthouse Visuals). Six gaps were found; five are shipped here
+and the sixth (a capacity line, "I take N listings a week") waits on Ryan's number.
+
+- **Work has an entry point.** `Work` is now a nav item on all three pages, and the home page has its
+  own `#work` rail: six videos by address with the realtor and brokerage under each, plus "See all
+  seventeen" into `/video/#work`. Before this the seventeen videos were reachable only through the
+  buttons inside the testimonials. The rail reuses `.car`/`.card` and app.js wires it with no changes
+  (both the marquee and the player guard on their elements).
+- **The problem is named before the offer.** New `#problem` section between the hero and the services:
+  thirty photos and a paragraph, everyone knows video does better, a shoot costs money and time, so
+  most houses never get one. PorchLyte's move, and the same reason-before-offer rule the emails follow.
+- **The featured plan says why.** `.plan-flag` ("Best value") on the $350 card. It was `is-featured`
+  alone, which renders as a darker border, and nobody reads a border. Deliberately **not** "most
+  popular": no pack has sold yet, so that would be a fabricated record.
+- **Brokerages are named under the hero.** `.brokers`, a typographic row of the nine brokerages the
+  work was actually delivered for. Their logos were the original idea and were rejected: RE/MAX and
+  Century 21 have brand-use rules, and a logo row implies the brokerage endorsed us when it was the
+  agent.
+- **The pack page has a sticky jump bar.** `.packnav` under the topbar: Reels, Carousels, Branding,
+  Pricing, Stories, Graphics, Album, Formats, Schedule, in document order, with the current one filled
+  in (pack.js, a line at a third of the viewport). Coffee & Contracts filters one grid; this page is
+  seven sections in a fixed order, so the bar is the same idea for a fixed page.
+  **Trap:** `body{overflow-x:hidden}` makes the body a scroll container, which silently kills
+  `position:sticky` (the bar scrolled away, measured at `top:-763`). `body.pack-page{overflow-x:clip}`
+  fixes it and still guards the horizontal overflow, since clip does not create a scroll container.
+  Anything sticky added to the home or video pages will hit the same wall.
+
 ## 2026-09-12: the three-reviewer pass, and ryanherbig.ca
 
 - **Hosting:** https://ryanherbig.ca is the only address. Cloudflare Workers static assets, Git-connected

@@ -253,6 +253,7 @@ PAGE = f'''<!doctype html>
   <nav class="topnav">
     <a href="../video/">Listing video</a>
     <a href="./" aria-current="page">Content pack</a>
+    <a href="../video/#work">Work</a>
     <a class="nav-pricing" href="#pricing">Pricing</a>
     <a href="../#clients">Testimonials</a>
     <a class="nav-cta" href="{MAIL}">Get a pack</a>
@@ -287,6 +288,21 @@ PAGE = f'''<!doctype html>
     </dl>
   </div>
 </section>
+
+<!-- ============================ JUMP BAR ============================ -->
+<nav class="packnav" aria-label="Jump to a part of the pack">
+  <div class="container packnav-row" id="packnav">
+    <a href="#reels">Reels</a>
+    <a href="#carousels">Carousels</a>
+    <a href="#branding">Branding</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#stories">Stories</a>
+    <a href="#graphics">Graphics</a>
+    <a href="#album">Album</a>
+    <a href="#menu">Formats</a>
+    <a href="#schedule">Schedule</a>
+  </div>
+</nav>
 
 <!-- ============================ REELS ============================ -->
 <section class="section reels" id="reels">

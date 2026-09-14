@@ -26,6 +26,26 @@
 }
 .hero-address .dot{width:4px;height:4px;border-radius:50%;background:var(--line);align-self:center}
 
+/* ---------- the jump bar: pick a piece type instead of scrolling past all of them ---------- */
+/* body's overflow-x:hidden makes it a scroll container, which kills position:sticky. clip
+   guards the same horizontal overflow without creating one. This page has no montage, so
+   only the rails can overflow, and they scroll inside their own containers. */
+body.pack-page{overflow-x:clip}
+.packnav{
+  position:sticky;top:63px;z-index:40;
+  background:rgba(255,255,255,.93);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.packnav-row{display:flex;gap:6px;padding:9px 0;overflow-x:auto;scrollbar-width:none}
+.packnav-row::-webkit-scrollbar{display:none}
+.packnav a{
+  flex:0 0 auto;padding:8px 15px;border-radius:999px;white-space:nowrap;
+  font-size:14px;font-weight:600;color:var(--soft);transition:background .2s,color .2s;
+}
+.packnav a:hover{background:var(--accent-tint);color:var(--accent-ink)}
+.packnav a.is-on{background:var(--ink);color:#fff}
+.pack-page section[id]{scroll-margin-top:118px}
+
 /* ---------- reels: five phones (six until 2026-09-11) ---------- */
 .reels{padding-top:96px}
 .phones{

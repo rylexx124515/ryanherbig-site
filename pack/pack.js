@@ -12,13 +12,28 @@
     requestAnimationFrame(arm);
   }
 
-  /* ---------- top bar hairline ---------- */
+  /* ---------- top bar hairline + which piece type you're looking at ---------- */
   const topbar = document.getElementById('topbar');
+  const jumps = [...document.querySelectorAll('#packnav a')].map(a => ({
+    a, section: document.querySelector(a.getAttribute('href'))
+  })).filter(j => j.section);
+  const markJump = () => {
+    if (!jumps.length) return;
+    // a type lights up once its section fills the top third, not the instant it clears the bar
+    const line = Math.max(132, window.innerHeight * 0.34);
+    let on = null;
+    for (const j of jumps) if (j.section.getBoundingClientRect().top <= line) on = j;
+    for (const j of jumps) j.a.classList.toggle('is-on', j === on);
+  };
   let ticking = false;
   const onScroll = () => {
     if (ticking) return;
     ticking = true;
-    requestAnimationFrame(() => { topbar.classList.toggle('is-scrolled', window.scrollY > 12); ticking = false; });
+    requestAnimationFrame(() => {
+      topbar.classList.toggle('is-scrolled', window.scrollY > 12);
+      markJump();
+      ticking = false;
+    });
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
