@@ -111,6 +111,7 @@
 
   /* ---------- stills rail arrows ---------- */
   const rail = document.getElementById('rail');
+  if (rail && document.getElementById('railPrev')) {
   const railStep = dir => {
     const first = rail.querySelector('.still');
     const step = first ? first.getBoundingClientRect().width + 20 : 300;
@@ -118,6 +119,7 @@
   };
   document.getElementById('railPrev').addEventListener('click', () => railStep(-1));
   document.getElementById('railNext').addEventListener('click', () => railStep(1));
+  }
 
   /* ---------- captions picker ---------- */
   const picks = [...document.querySelectorAll('.cap-picks button')];

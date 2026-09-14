@@ -19,7 +19,7 @@ MAIL300 = "mailto:its.rylexx@gmail.com?subject=Content%20pack%20from%20my%20foot
 # The six v2 reels (2026-09-10), one format each, in Ryan's order (2026-09-11: his two favourites first).
 # (key, name, duration). Keys match pack/assets/reels/<key>.mp4 and posters/<key>.jpg.
 REELS = [
-    ("V5", "What $1,575,000 gets you", "0:20"),
+    ("V5", "What $1,499,900 gets you", "0:20"),
     ("V4", "Guess the price", "0:18"),
     ("V2", "Two rooms at a time", "0:18"),
     ("V3", "The great room", "0:12"),
@@ -43,14 +43,14 @@ MENU = [
     ("Day to night", False),
 ]
 
-C1 = [("01_cover", "Cover"), ("02_numbers", "The numbers"), ("03_great_room", "Great room"), ("04_kitchen", "Kitchen"),
-      ("05_primary_suite", "Primary suite"), ("06_ensuite", "Ensuite"), ("07_lower_level", "Lower level"),
-      ("08_covered_patio", "Covered patio"), ("09_the_backyard", "The backyard"), ("10_cta", "Contact")]
-C2 = [("01_cover", "Cover"), ("02_the_water", "The water"), ("03_where_you_sit", "Where you sit"),
-      ("04_the_family_end", "The family end"), ("05_from_above", "From above")]
+C1 = [("01_cover", "Cover"), ("02_numbers", "The numbers"), ("03_great_room", "Great room"), ("04_chefs_kitchen", "Chef's kitchen"),
+      ("05_primary_retreat", "Primary retreat"), ("06_spa-inspired_ensuite", "Spa-inspired ensuite"), ("07_lower-level_living", "Lower-level living"),
+      ("08_covered_patio", "Covered patio"), ("09_backyard_oasis", "Backyard oasis"), ("10_cta", "Contact")]
+C2 = [("01_cover", "Cover"), ("02_resort-style_living", "Resort-style living"), ("03_covered_patio", "Covered patio"),
+      ("04_family-friendly_yard", "Family-friendly yard"), ("05_aerial_backyard_view", "Aerial backyard view")]
 C3 = [("01_cover", "Cover"), ("02_bedroom_1", "Bedroom 1 of 5"), ("03_bedroom_2", "Bedroom 2 of 5"),
       ("04_bedroom_3", "Bedroom 3 of 5"), ("05_bedroom_4", "Bedroom 4 of 5"), ("06_bedroom_5", "Bedroom 5 of 5"),
-      ("07_then_downstairs", "Then downstairs"), ("08_rec_room", "Rec room"), ("09_games_room", "Games room"),
+      ("07_then_downstairs", "Then downstairs"), ("08_recreation_room", "Recreation room"), ("09_games_room", "Games room"),
       ("10_home_gym", "Home gym")]
 # C4 (by day, by dusk) was built 2026-09-11 and dropped the same day: as a static split it made the
 # house small and read like an ad. The slides stay in the client folder; the page shows three.
@@ -78,11 +78,11 @@ SCHED = [
     ("3 days before", "Coming soon graphic", "FB + IG"),
     ("1 day before", "Story: drops tomorrow", "Stories"),
     ("Listing day", "Two rooms at a time, Just Listed carousel, Facebook album", "FB + IG"),
-    ("Day 2", "What $1,575,000 gets you", "IG reel"),
+    ("Day 2", "What $1,499,900 gets you", "IG reel"),
     ("Day 4", "Guess the price", "IG + FB"),
     ("Day 5", "Story: open house", "Stories"),
     ("Day 7", "The great room", "IG reel"),
-    ("Day 8", "The backyard, five ways", "IG carousel"),
+    ("Day 8", "Backyard oasis", "IG carousel"),
     ("Day 10", "The details", "IG + FB"),
     ("Day 11", "The other half", "FB + IG carousel"),
     ("Day 14", "Story: the price", "Stories"),
@@ -91,52 +91,52 @@ SCHED = [
 ]
 
 # (label, Facebook, Instagram). Verbatim from the pack's CAPTIONS.md.
+# (label, Facebook, Instagram). 2026-09-14: rewritten in Isaac's voice, from his own listing page
+# copy ("Introducing this beautiful, custom-designed, and fully finished 2-storey home...").
+# Facebook gets the full write-up; Instagram gets the short version with a few local hashtags.
+FB_CORE = ("Introducing this beautiful, custom-designed and fully finished 2-storey home on a 100 x 200 foot lot in the heart of South Windsor. "
+           "5 bedrooms, 5 bathrooms (4 en-suites) and approx. 5,300 sq ft finished, including the lower level.")
+FB_CLOSE = "$1,499,900. Contact Isaac Verge for a private showing: 519-564-0903."
 CAPTIONS = [
     ("Two rooms at a time",
-     "625 North Talbot Road, two rooms at a time. Five bedrooms, five bathrooms with four of them ensuite, about 5,300 finished square feet including the lower level, on a 100 by 200 foot lot in South Windsor.\n\nStone fireplace in the great room, granite island in the kitchen, in-ground pool and an extra large covered patio out back. Triple garage.\n\n$1,575,000. Message me to see it in person.",
-     "Two rooms at a time. 625 North Talbot Road.\n5 bed · 5 bath · 5,300 sq ft · $1,575,000\nDM to see it in person.\n#justlisted #southwindsor #windsorrealestate #yqg"),
-    ("What $1,575,000 gets you",
-     "This is what $1,575,000 buys in South Windsor right now.\n\nFive bedrooms. Five bathrooms, four of them ensuite. About 5,300 finished square feet with the lower level. A 100 by 200 foot lot with an in-ground pool and an extra large covered patio. Triple garage.\n\n625 North Talbot Road. Message me for a private showing.",
-     "What $1,575,000 gets you in South Windsor.\nPool, 100x200 lot, 5 bed, 5 bath.\n625 North Talbot Road.\n#southwindsor #windsorrealestate #yqg #justlisted"),
+     "625 North Talbot Road, Windsor. " + FB_CORE + "\n\nHand-scraped hardwood, a stunning stone fireplace in the great room, a chef-inspired kitchen, and a private resort-style backyard with an in-ground pool and extra-large covered patio. Triple car garage.\n\n" + FB_CLOSE,
+     "625 North Talbot Road, South Windsor.\n5 bed | 5 bath | approx. 5,300 sq ft | 100 x 200 ft lot\n$1,499,900. DM for a private showing.\n#JustListed #SouthWindsor #WindsorRealEstate #YQG"),
+    ("What $1,499,900 gets you",
+     "What $1,499,900 gets you in South Windsor.\n\n" + FB_CORE + " A private resort-style backyard with an in-ground pool and extra-large covered patio, and a triple car garage.\n\n625 North Talbot Road. Contact Isaac Verge for a private showing: 519-564-0903.",
+     "What $1,499,900 gets you in South Windsor.\n5 bed | 5 bath | pool | 100 x 200 ft lot\n625 North Talbot Road.\n#SouthWindsor #WindsorRealEstate #YQG"),
     ("Guess the price",
-     "Five bedrooms, five bathrooms, a pool and a 100 by 200 foot lot in South Windsor. Before the number comes up, what would you guess?\n\nThe answer is at the end. 625 North Talbot Road.",
-     "Guess before the end.\n5 bed · 5 bath · pool · 100x200 lot\nSouth Windsor.\n#guesstheprice #windsorrealestate #southwindsor #yqg"),
+     "Five bedrooms, five bathrooms, an in-ground pool and a 100 x 200 foot lot in the heart of South Windsor. What would you guess?\n\nThe answer is at the end. 625 North Talbot Road. Contact Isaac Verge: 519-564-0903.",
+     "Guess the price before the end.\n5 bed | 5 bath | pool | 100 x 200 ft lot\nSouth Windsor.\n#GuessThePrice #SouthWindsor #WindsorRealEstate #YQG"),
     ("The great room",
-     "One room, four angles, twelve seconds. The great room at 625 North Talbot Road: a stone fireplace wall running floor to ceiling, and the whole main floor opening around it.\n\nFive bedrooms, five bathrooms, about 5,300 finished square feet. $1,575,000.",
-     "The best room in the house, in twelve seconds.\n625 North Talbot Road · $1,575,000\n#windsorrealestate #southwindsor #yqg #greatroom"),
+     "Gather around the stunning stone fireplace in this warm and inviting space. The great room at 625 North Talbot Road, Windsor.\n\n" + FB_CORE + "\n\n" + FB_CLOSE,
+     "The great room at 625 North Talbot Road.\n$1,499,900 | South Windsor\n#WindsorRealEstate #SouthWindsor #YQG"),
     ("The details",
-     "The small things at 625 North Talbot Road. The pendants over the granite island, the stone fireplace up close, the chandelier in the ensuite, the piano room, the 625 on the stone out front.\n\nFive bedrooms, five bathrooms, in-ground pool, 100 by 200 foot lot. $1,575,000.",
-     "Look closer. 625 North Talbot Road.\n$1,575,000 · South Windsor\n#windsorrealestate #southwindsor #yqg #details"),
-    ("Fire, water, stone, wood",
-     "The fireplace, the pool, the stone, the hardwood. 625 North Talbot Road, cut by what the house is made of instead of room by room.\n\nFive bedrooms, five bathrooms, about 5,300 finished square feet on a 100 by 200 foot lot in South Windsor. $1,575,000.",
-     "Fire, water, stone, wood.\n625 North Talbot Road · $1,575,000\n#southwindsor #windsorrealestate #yqg"),
+     "The finishes that make 625 North Talbot Road: pendant lighting over the chef's kitchen, the stunning stone fireplace, the spa-inspired ensuite, the elegant flex room, and the stone entry out front.\n\n" + FB_CORE + "\n\n" + FB_CLOSE,
+     "The finishes at 625 North Talbot Road.\n$1,499,900 | South Windsor\n#WindsorRealEstate #SouthWindsor #YQG"),
     ("C1 · Just Listed carousel",
-     "Just listed at 625 North Talbot Road, Windsor. $1,575,000.\n\nFive bedrooms. Five bathrooms, four of them ensuite. About 5,300 finished square feet including a finished lower level with a rec room, a gym and a full bath. Brick and stone, triple garage.\n\nOutside, an in-ground pool and an extra large covered patio on a 100 by 200 foot lot.\n\nSwipe through, and message me if you want to see it.",
-     "Just listed. 625 North Talbot Road, South Windsor.\n$1,575,000 · 5 bed · 5 bath · 5,300 sq ft · 100x200 lot\nSwipe through. DM to book a showing.\n#justlisted #southwindsor #windsorrealestate #yqg"),
-    ("C2 · The backyard, five ways",
-     "Five angles on the reason someone will buy this house.\n\nIn-ground pool with a walk-in shallow end and a full safety fence. Extra large covered patio with ceiling fans. Play structure at the back. All of it on a 100 by 200 foot lot.\n\n625 North Talbot Road, $1,575,000.",
-     "The backyard, five ways.\nPool, covered patio, playground, 100x200 lot.\n625 North Talbot Road.\n#southwindsor #windsorrealestate #backyardgoals #yqg"),
+     "JUST LISTED | 625 North Talbot Road, Windsor\n\n" + FB_CORE + " The main floor features beautiful hand-scraped hardwood floors, a warm and inviting great room with a stone fireplace, a stunning chef-inspired kitchen with premium appliances, and a convenient guest suite.\n\nThe backyard offers a private resort-style oasis with an in-ground pool, extra-large covered patio, and lots of privacy. Triple car garage.\n\n" + FB_CLOSE,
+     "JUST LISTED | 625 North Talbot Road, South Windsor\n5 bed | 5 bath | approx. 5,300 sq ft | 100 x 200 ft lot\n$1,499,900. Swipe through, then DM for a private showing.\n#JustListed #SouthWindsor #WindsorRealEstate #YQG"),
+    ("C2 · Backyard oasis",
+     "The backyard at 625 North Talbot Road is a private resort-style oasis: an in-ground pool with a walk-in shallow end, an extra-large covered patio, a family-friendly yard, all on a 100 x 200 foot lot in South Windsor.\n\n" + FB_CLOSE,
+     "Your own private resort in South Windsor.\nIn-ground pool | covered patio | 100 x 200 ft lot\n625 North Talbot Road | $1,499,900\n#SouthWindsor #WindsorRealEstate #YQG"),
     ("C3 · The other half",
-     "Everyone posts the kitchen. Here is the other half of 625 North Talbot Road.\n\nFive bedrooms, counted out one by one, then the finished lower level: a rec room with a stone fireplace, a games room, a home gym and a full bath. That is where the 5,300 square feet actually is.\n\n$1,575,000. Message me to walk it.",
-     "You have seen the kitchen. Here is the rest.\n5 bedrooms, then downstairs.\n625 North Talbot Road · $1,575,000\n#windsorrealestate #southwindsor #yqg"),
-    ("C4 · By day, by dusk",
-     "The same house, photographed twice. 625 North Talbot Road by day and at dusk, from the same four spots.\n\nBrick and stone, triple garage, on a 100 by 200 foot lot in South Windsor. Five bedrooms, five bathrooms, in-ground pool. $1,575,000.",
-     "By day, by dusk. Swipe.\n625 North Talbot Road, South Windsor.\n#southwindsor #windsorrealestate #twilight #yqg"),
-    ("Card · Coming soon",
-     "Something is coming on North Talbot. Five bedrooms, a pool, and a 100 by 200 foot lot in South Windsor. Photos and the full tour this week.",
-     "Coming soon in South Windsor.\n5 bed · pool · 100x200 lot\n#comingsoon #southwindsor #yqg"),
-    ("Card · Open house",
-     "Open house at 625 North Talbot Road this [day] from [time] to [time].\n\nCome through the whole house, including the finished lower level, and have a look at the backyard. Five bedrooms, five bathrooms, in-ground pool, 100 by 200 foot lot. $1,575,000.\n\nNo appointment needed. Bring whoever you want a second opinion from.",
-     "Open house [day], [time].\n625 North Talbot Road, South Windsor.\n#openhouse #southwindsor #windsorrealestate #yqg"),
-    ("Card · Price improved",
-     "Price improved at 625 North Talbot Road. Now $1,575,000, down from $1,650,000.\n\nSame five bedrooms, same in-ground pool, same 100 by 200 foot lot. If it was close before, it is worth a second look now.",
-     "Price improved. Now $1,575,000.\n625 North Talbot Road, South Windsor.\n#pricedrop #southwindsor #windsorrealestate #yqg"),
-    ("Card · Sold, with the numbers",
-     "Sold. 625 North Talbot Road, South Windsor, in [n] days with [n] offers.\n\nThank you to the sellers for trusting me with it, and congratulations to the buyers.\n\nIf you are thinking about selling in South Windsor and you want to know what your place would do in this market, message me. Happy to give you a straight answer.",
-     "Sold in [n] days. [n] offers.\n625 North Talbot Road, South Windsor.\nThinking of selling? DM me.\n#sold #southwindsor #windsorrealestate #yqg"),
-    ("The Facebook album",
-     "Just listed: 625 North Talbot Road, Windsor. $1,575,000.\n\nFive bedrooms and five bathrooms, four of them ensuite. About 5,300 finished square feet including the lower level, which is finished properly, with a rec room and fireplace, a home gym and another full bath.\n\nThe main floor is built around a stone fireplace wall in the great room, with a granite island kitchen that opens onto it and a separate dining room. Upstairs there are four more bedrooms.\n\nOutside is the part that is hard to find in South Windsor: a 100 by 200 foot lot with an in-ground pool, an extra large covered patio with ceiling fans, and a play structure at the back. Triple garage, brick and stone.\n\nTwelve photos below, in the order I would show you the house.\n\nMessage me to see it in person.",
-     "Post the carousel instead. A twelve photo album is a Facebook format, and Instagram caps a carousel at ten anyway."),
+     "Five bedrooms and a fully finished lower level at 625 North Talbot Road, Windsor. A spacious primary suite, four more bedrooms, and downstairs an expansive recreation room, games room and home gym with endless possibilities for entertaining and family time.\n\n" + FB_CLOSE,
+     "Five bedrooms, then the finished lower level.\n625 North Talbot Road | $1,499,900\n#WindsorRealEstate #SouthWindsor #YQG"),
+    ("Graphic · Coming soon",
+     "COMING SOON in South Windsor. Five bedrooms, an in-ground pool, and a 100 x 200 foot lot. Full tour and photos this week.",
+     "Coming soon in South Windsor.\n5 bed | pool | 100 x 200 ft lot\n#ComingSoon #SouthWindsor #YQG"),
+    ("Graphic · Open house",
+     "OPEN HOUSE | 625 North Talbot Road, Windsor | [Day], [time] to [time]\n\nTour the whole home, the fully finished lower level and the resort-style backyard. 5 bedrooms, 5 bathrooms, in-ground pool, 100 x 200 foot lot. $1,499,900.\n\nNo appointment needed. Isaac Verge, 519-564-0903.",
+     "Open house [day], [time].\n625 North Talbot Road, South Windsor.\n#OpenHouse #SouthWindsor #WindsorRealEstate #YQG"),
+    ("Graphic · Price improved",
+     "PRICE IMPROVED | 625 North Talbot Road, Windsor. Now $1,499,900.\n\nFive bedrooms, five bathrooms, a private resort-style backyard with an in-ground pool, on a 100 x 200 foot lot in the heart of South Windsor. Contact Isaac Verge for a private showing: 519-564-0903.",
+     "Price improved. Now $1,499,900.\n625 North Talbot Road, South Windsor.\n#PriceImproved #SouthWindsor #WindsorRealEstate #YQG"),
+    ("Graphic · Sold",
+     "SOLD | 625 North Talbot Road, South Windsor, in [n] days with [n] offers.\n\nThank you to our sellers for trusting the Verge Real Estate Team, and congratulations to the buyers.\n\nThinking of selling in South Windsor? Contact Isaac Verge for a free home evaluation: 519-564-0903.",
+     "SOLD in [n] days. [n] offers.\n625 North Talbot Road, South Windsor.\nThinking of selling? DM Isaac.\n#Sold #SouthWindsor #WindsorRealEstate #YQG"),
+    ("The Facebook photo post",
+     "JUST LISTED | 625 North Talbot Road, Windsor | $1,499,900\n\n" + FB_CORE + " The main floor features beautiful hand-scraped hardwood floors, a warm and inviting great room with a stone fireplace, a stunning chef-inspired kitchen with premium appliances, and a convenient guest suite perfect for visitors or multigenerational living.\n\nThe finished basement adds extra living and entertaining space, while the sought-after location puts you close to top schools, parks, shopping, and all amenities. The backyard offers a private resort-style oasis with an in-ground pool, extra-large covered patio, and lots of privacy. The triple-car garage offers room for your toys and hobbies.\n\nTwelve photos below. Contact Isaac Verge for a private showing: 519-564-0903.",
+     "Post the carousel instead. A twelve photo album is a Facebook format."),
 ]
 
 e = html.escape
@@ -305,37 +305,32 @@ PAGE = f'''<!doctype html>
     <div class="sec-head reveal">
       <p class="eyebrow">The three carousels</p>
       <h2>Swipe through them here.</h2>
-      <p class="sec-sub">Launch day, the feature that sells the house, and the rooms nobody posts. Captions included.</p>
+      <p class="sec-sub">Launch day, the feature that sells the house, and the rooms nobody posts. Captions included, written the way you already write: I study your past posts and listing write-ups first.</p>
     </div>
-    <div class="posts reveal">{carousel("c1", "c1", C1, "Just Listed", "10 slides", CAP["C1 · Just Listed carousel"][1])}{carousel("c2", "c2", C2, "The backyard, five ways", "5 slides", CAP["C2 · The backyard, five ways"][1])}{carousel("c3", "c3", C3, "The other half", "10 slides", CAP["C3 · The other half"][1])}
+    <div class="posts reveal">{carousel("c1", "c1", C1, "Just Listed", "10 slides", CAP["C1 · Just Listed carousel"][1])}{carousel("c2", "c2", C2, "Backyard oasis", "5 slides", CAP["C2 · Backyard oasis"][1])}{carousel("c3", "c3", C3, "The other half", "10 slides", CAP["C3 · The other half"][1])}
     </div>
   </div>
 </section>
 
 
-<!-- ============================ THREE QUOTES ============================ -->
-<section class="section clients clients-mini" id="clients">
+<!-- ============================ BRANDING ============================ -->
+<section class="section brand" id="branding">
   <div class="container">
     <div class="sec-head reveal">
-      <p class="eyebrow">Clients</p>
-      <h2>In their words.</h2>
+      <p class="eyebrow">Your branding</p>
+      <h2>Same brand. Cleaner.</h2>
+      <p class="sec-sub">Same logo, same red, same brokerage. The team's template on the left, the pack's version on the right.</p>
     </div>
-    <div class="quotes quotes-3">
-      <blockquote class="quote reveal q-s">
-        <p>"Ryan did a great job, very professional looking. He showcased the right features on my listing.
-        Timely, courteous and professional."</p>
-        <footer><span class="q-name">Rene Thrasher</span><span class="q-brok">RE/MAX Preferred Realty</span></footer>
-      </blockquote>
-      <blockquote class="quote reveal q-xs">
-        <p>"Excellent work, very professionally done."</p>
-        <footer><span class="q-name">Brandy Robertson</span><span class="q-brok">O'Brien Robertson Realty</span></footer>
-      </blockquote>
-      <blockquote class="quote reveal q-xs">
-        <p>"Looks great. Will definitely keep in touch for future listings."</p>
-        <footer><span class="q-name">Kelsey Quick</span><span class="q-brok">RE/MAX Preferred Realty</span></footer>
-      </blockquote>
+    <div class="brand-pair reveal">
+      <figure class="brand-side" data-full="assets/brand/before.jpg" data-title="Before" tabindex="0" role="button" aria-label="Open the before">
+        <img src="assets/brand/before.jpg" alt="The team's Just Listed template" width="1000" height="1000" loading="lazy">
+        <figcaption>Before</figcaption>
+      </figure>
+      <figure class="brand-side" data-full="assets/c1/01_cover.jpg" data-title="After" tabindex="0" role="button" aria-label="Open the after">
+        <img src="assets/c1/01_cover.jpg" alt="The pack's Just Listed cover" width="1080" height="1350" loading="lazy">
+        <figcaption>After</figcaption>
+      </figure>
     </div>
-    <p class="quotes-link reveal"><a href="../#clients">All eight, on the home page</a></p>
   </div>
 </section>
 
@@ -356,7 +351,7 @@ PAGE = f'''<!doctype html>
           <li>Five vertical reels</li>
           <li>Three carousels and a Facebook album</li>
           <li>Four Instagram stories and five ready to post graphics</li>
-          <li>Captions for every piece</li>
+          <li>Captions for every piece, in your voice</li>
           <li>A two-week posting schedule</li>
         </ul>
         <p class="plan-addon">+ $100 and I post it all for you, on the schedule.</p>
@@ -380,23 +375,28 @@ PAGE = f'''<!doctype html>
 </section>
 
 
-<!-- ============================ STILLS ============================ -->
-<section class="section stills" id="stills">
+<!-- ============================ STORIES ============================ -->
+<section class="section stills" id="stories">
   <div class="container">
-    <div class="sec-head sec-head-split reveal">
-      <div>
-        <p class="eyebrow">Stories and graphics</p>
-        <h2>Four stories. Five graphics.</h2>
-        <p class="sec-sub">Stories for launch week. Graphics for the rest of it: coming soon, just listed, open house, price improved, sold.</p>
-      </div>
-      <div class="car-nav">
-        <button class="car-btn" id="railPrev" aria-label="Scroll back">&#8592;</button>
-        <button class="car-btn" id="railNext" aria-label="Scroll forward">&#8594;</button>
-      </div>
+    <div class="sec-head reveal">
+      <p class="eyebrow">Stories</p>
+      <h2>Four stories for launch week.</h2>
+      <p class="sec-sub">Full-screen frames for Instagram and Facebook Stories. They run for 24 hours each, one a day around the launch: drops tomorrow, just listed, open house, the price.</p>
+    </div>
+    <div class="rail rail-inline">{rail_items("stories", STORIES, "tall", 1080, 1920)}
     </div>
   </div>
-  <div class="rail-wrap">
-    <div class="rail" id="rail">{rail_items("stories", STORIES, "tall", 1080, 1920)}<span class="rail-gap" aria-hidden="true"></span>{rail_items("cards", CARDS, "wide", 1080, 1350)}
+</section>
+
+<!-- ============================ GRAPHICS ============================ -->
+<section class="section stills" id="graphics">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Graphics</p>
+      <h2>Five graphics for the life of the listing.</h2>
+      <p class="sec-sub">Square posts for the feed, one for each stage: coming soon, just listed, open house, price improved, sold. Ready to post the day it happens.</p>
+    </div>
+    <div class="rail rail-inline">{rail_items("cards", CARDS, "wide", 1080, 1350)}
     </div>
   </div>
 </section>
@@ -405,9 +405,9 @@ PAGE = f'''<!doctype html>
 <section class="section album" id="album">
   <div class="container">
     <div class="sec-head reveal">
-      <p class="eyebrow">The Facebook album</p>
-      <h2>Twelve photos, one Facebook post.</h2>
-      <p class="sec-sub">Plain photos with the written post, in the order you would be shown the house. Instagram gets the carousels, Facebook gets this.</p>
+      <p class="eyebrow">The Facebook photo post</p>
+      <h2>Twelve photos, one post.</h2>
+      <p class="sec-sub">Facebook's version of a carousel. The photos themselves, no text on them, in the order you would show the house, with the full write-up as the post. Instagram gets the designed carousels, Facebook gets this.</p>
     </div>
     <div class="shots">{album_grid()}
     </div>

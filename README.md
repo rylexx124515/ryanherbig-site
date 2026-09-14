@@ -130,6 +130,25 @@ Pricing shown on the site (2026-09-09): Listing video $150 pay-if-you-like · Co
 from photos, +$100 posted · Content pack from the realtor's own footage $300 · one vertical reel
 $100 as a footnote. No $200 film anywhere on the site.
 
+## 2026-09-12: the three-reviewer pass, and ryanherbig.ca
+
+- **Hosting:** https://ryanherbig.ca is the only address. Cloudflare Workers static assets, Git-connected
+  to `rylexx124515/ryanherbig-site` (build command empty, deploy `npx wrangler deploy`, config in
+  `wrangler.jsonc`, `.assetsignore` keeps scripts and dotfiles out). Every push to that repo deploys in
+  about a minute. `workers_dev` and preview URLs are off; GitHub Pages was disabled via the API
+  (`gh api -X DELETE repos/rylexx124515/ryanherbig-site/pages`, re-enable with a PUT if ever needed).
+  No www record on purpose (Ryan: only the bare domain).
+- **Copy and structure** (from three parallel reviews: comprehension, conversion, visual QA): every hero
+  leads with price and "you see it before you pay"; the proof band sits above the pricing cards; the
+  home has two plans with the $300 from-your-footage pack as a line in the pack card; pack pricing
+  comes right after the carousels; three short quotes precede every price; every mailto prefills
+  Address / MLS link / Name and brokerage; "cards" are "graphics", "film" is gone; counts are
+  **17 videos / 12 realtors, "videos made"** (Riverside and Forest added to the work; Rose LaFlamme's
+  Facebook-only video is not counted).
+- **CSS:** ghost buttons have a visible border, the carousel fades at its edges, the pack shelf is five
+  columns on the page rail, the lone third carousel centres, quotes fold to four on every width with a
+  text link, the schedule card is sticky, kickers balance, the phone hero has no shadow block.
+
 ## 2026-09-11, evening: five reels, three carousels (Ryan's review)
 
 - Ryan reordered the reels (his two favourites first: what $1,575,000 gets you, guess the price,
