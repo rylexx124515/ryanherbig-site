@@ -19,12 +19,14 @@ MAIL300 = "mailto:its.rylexx@gmail.com?subject=Content%20pack%20from%20my%20foot
 # The six v2 reels (2026-09-10), one format each, in Ryan's order (2026-09-11: his two favourites first).
 # (key, name, duration). Keys match pack/assets/reels/<key>.mp4 and posters/<key>.jpg.
 REELS = [
+    ("F1", "The film", "0:24"),
     ("V5", "What $1,499,900 gets you", "0:20"),
     ("V4", "Guess the price", "0:18"),
     ("V2", "Two rooms at a time", "0:18"),
-    ("V3", "The great room", "0:12"),
     ("V1", "The details", "0:24"),
 ]
+# 2026-09-14: the vertical film (F1, Isaac-approved 09-03, music swapped to the 110 BPM track) replaces
+# the great room reel (V3), which Ryan called "so lame, I just see one room".
 # V6 (fire, water, stone, wood) dropped by Ryan 2026-09-11: "zooming into nothing". Five reels.
 
 # (name, in this pack). Twelve formats; the six marked are the ones this house got.
@@ -32,9 +34,9 @@ MENU = [
     ("Two rooms at a time", True),
     ("What the price gets you", True),
     ("Guess the price", True),
-    ("One room, four angles", True),
+    ("One room, four angles", False),
     ("The details", True),
-    ("The listing video, vertical", False),
+    ("The listing video, vertical", True),
     ("Outdoor life", False),
     ("3 things you'd miss in the photos", False),
     ("Coming soon", False),
@@ -77,11 +79,11 @@ ALBUM = [
 SCHED = [
     ("3 days before", "Coming soon graphic", "FB + IG"),
     ("1 day before", "Story: drops tomorrow", "Stories"),
-    ("Listing day", "Two rooms at a time, Just Listed carousel, Facebook album", "FB + IG"),
+    ("Listing day", "The film, Just Listed carousel, Facebook album", "FB + IG"),
     ("Day 2", "What $1,499,900 gets you", "IG reel"),
     ("Day 4", "Guess the price", "IG + FB"),
     ("Day 5", "Story: open house", "Stories"),
-    ("Day 7", "The great room", "IG reel"),
+    ("Day 7", "Two rooms at a time", "IG reel"),
     ("Day 8", "Backyard oasis", "IG carousel"),
     ("Day 10", "The details", "IG + FB"),
     ("Day 11", "The other half", "FB + IG carousel"),
@@ -107,9 +109,9 @@ CAPTIONS = [
     ("Guess the price",
      "Five bedrooms, five bathrooms, an in-ground pool and a 100 x 200 foot lot in the heart of South Windsor. What would you guess?\n\nThe answer is at the end. 625 North Talbot Road. Contact Isaac Verge: 519-564-0903.",
      "Guess the price before the end.\n5 bed | 5 bath | pool | 100 x 200 ft lot\nSouth Windsor.\n#GuessThePrice #SouthWindsor #WindsorRealEstate #YQG"),
-    ("The great room",
-     "Gather around the stunning stone fireplace in this warm and inviting space. The great room at 625 North Talbot Road, Windsor.\n\n" + FB_CORE + "\n\n" + FB_CLOSE,
-     "The great room at 625 North Talbot Road.\n$1,499,900 | South Windsor\n#WindsorRealEstate #SouthWindsor #YQG"),
+    ("The film",
+     "JUST LISTED | 625 North Talbot Road, Windsor. Take the full walk through, room by room.\n\n" + FB_CORE + " Hand-scraped hardwood, a stunning stone fireplace in the great room, a chef-inspired kitchen, and a private resort-style backyard with an in-ground pool. Triple car garage.\n\n" + FB_CLOSE,
+     "JUST LISTED | 625 North Talbot Road, South Windsor.\nThe full walk through.\n5 bed | 5 bath | approx. 5,300 sq ft | $1,499,900\n#JustListed #SouthWindsor #WindsorRealEstate #YQG"),
     ("The details",
      "The finishes that make 625 North Talbot Road: pendant lighting over the chef's kitchen, the stunning stone fireplace, the spa-inspired ensuite, the elegant flex room, and the stone entry out front.\n\n" + FB_CORE + "\n\n" + FB_CLOSE,
      "The finishes at 625 North Talbot Road.\n$1,499,900 | South Windsor\n#WindsorRealEstate #SouthWindsor #YQG"),
@@ -277,7 +279,7 @@ PAGE = f'''<!doctype html>
       </div>
     </div>
     <dl class="stats fade">
-      <div><dt>Reels</dt><dd><span data-count="5">0</span></dd><span class="stat-sub">12 to 24 seconds each</span></div>
+      <div><dt>Reels</dt><dd><span data-count="5">0</span></dd><span class="stat-sub">18 to 24 seconds each</span></div>
       <div><dt>Carousels</dt><dd><span data-count="3">0</span></dd><span class="stat-sub">25 slides</span></div>
       <div><dt>Facebook album</dt><dd><span data-count="12">0</span></dd><span class="stat-sub">photos, one post</span></div>
       <div><dt>Stories and graphics</dt><dd><span data-count="9">0</span></dd><span class="stat-sub">coming soon to sold</span></div>
