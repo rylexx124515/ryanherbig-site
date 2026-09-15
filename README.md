@@ -130,6 +130,45 @@ Pricing shown on the site (2026-09-09): Listing video $150 pay-if-you-like · Co
 from photos, +$100 posted · Content pack from the realtor's own footage $300 · one vertical reel
 $100 as a footnote. No $200 film anywhere on the site.
 
+## 2026-09-15, later: the phone audit in WebKit
+
+Ryan asked whether the site is actually optimised for phones. The earlier passes were checked in
+emulated Chromium, which is not what an iPhone runs, so this one ran in **Playwright WebKit 26.5**
+(Safari's engine) at 390x844 with touch and a 3x DPR, walking each page top to bottom so every
+control was laid out before measuring.
+
+Clean already: no page scrolls sideways (scrollWidth 390 of 390, and 844 of 844 in landscape), no JS
+errors on any page, `overflow-x: clip` is supported so the pack page's sticky jump bar pins at 63px
+in Safari too.
+
+What it caught, all of it tap-target size against Apple's 44px minimum:
+
+| Control | was | now |
+|---|---|---|
+| `.nav-pricing` in the top bar, every page | 22px | 44 |
+| `.brand` in the top bar, every page | 27px | 44 |
+| `.q-film` "Watch the video", four on the home page | 35px | 44 |
+| `.packnav a` jump bar chips | 38px | 44 |
+| `.cap-picks button` caption picker | 40px | 44 |
+| `.post-dots button` slideshow dots | **6px** | 44 tall, 20 wide |
+| footer links | 41px | 44 |
+
+The technique everywhere is padding cancelled by an equal negative margin, so the hit box grows and
+the layout does not move. The dots keep their 6px look and get an invisible `::after` at
+`inset:-19px -7px`; verified by hit testing, `elementFromPoint` 12px above a dot returns that dot and
+clicking there navigates to its slide. Horizontal stays 20px on purpose: ten dots at 44px each would
+be 440px on a 390px screen, and the adjacent dot owns the space either side.
+
+Left alone deliberately: five **inline links inside sentences** ("the pack's menu", "See the content
+pack."). Forcing 44px on an inline link either breaks the paragraph's line box or overlaps the hit
+area of the line above it, and a coloured link in running text is a pattern people tap accurately.
+Also left: 12.5px uppercase label text (stat labels, chips, the plan flag), which is label-sized on
+purpose and within what iOS uses itself.
+
+Measuring tool: `elementFromPoint` only reports on the visible viewport, so the first probe returned
+`null` for every dot and looked like the fix had failed. It had not; the dots were below the fold.
+Scroll the target into view before hit testing.
+
 ## 2026-09-15: Ryan's feedback pass, phone first
 
 Twenty-three items from one review. What changed, by page:

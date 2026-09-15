@@ -83,7 +83,9 @@ body.pack-page{overflow-x:clip}
   /* a full Facebook write-up is three phone screens on its own, so it scrolls in place */
   .cap{max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .cap p{font-size:14.5px}
-  .cap-picks{max-height:172px;overflow-y:auto}
+  .cap-picks{max-height:188px;overflow-y:auto}
+  .cap-picks button{min-height:44px}
+  .packnav a{padding:11px 15px}
 }
 
 /* ---------- reels: five phones (six until 2026-09-11) ---------- */
@@ -161,7 +163,10 @@ body.pack-page{overflow-x:clip}
 .slide-btn:active{transform:translateY(-50%) scale(.94)}
 .slide-btn[disabled]{opacity:.35;pointer-events:none}
 .post-dots{display:flex;justify-content:center;gap:6px;padding:16px 0 4px}
-.post-dots button{width:6px;height:6px;border-radius:50%;background:var(--line);transition:background .2s,transform .2s var(--ease-out)}
+/* the dot stays 6px; the thing you tap is the invisible box around it, because a 6px
+   target is unusable on a phone (WebKit at 390px measured every one of them at 6x6) */
+.post-dots button{position:relative;width:6px;height:6px;border-radius:50%;background:var(--line);transition:background .2s,transform .2s var(--ease-out)}
+.post-dots button::after{content:"";position:absolute;inset:-19px -7px}
 .post-dots button.is-on{background:var(--accent);transform:scale(1.35)}
 .post-cap{padding:14px 24px 24px;font-size:14px;line-height:1.55;color:var(--soft);border-top:1px solid var(--line);margin-top:12px}
 
