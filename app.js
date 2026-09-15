@@ -140,6 +140,25 @@
     if (next) next.addEventListener('click', () => nudge(1));
   }
 
+  /* ---------- loops below the fold: load and play only once they are on screen ----------
+     A 2.5MB autoplay video in the middle of the page cost every phone 2.5MB before it had
+     scrolled to it, which is what "the page isn't loading" actually felt like. */
+  const lazyLoops = document.querySelectorAll('video.lazy-loop');
+  if (lazyLoops.length) {
+    const loopIO = new IntersectionObserver(entries => {
+      for (const e of entries) {
+        const v = e.target;
+        if (e.isIntersecting) {
+          if (!v.src && v.dataset.src) v.src = v.dataset.src;
+          v.play().catch(() => {});
+        } else if (!v.paused) {
+          v.pause();
+        }
+      }
+    }, { rootMargin: '150px 0px', threshold: 0.1 });
+    lazyLoops.forEach(v => { v.muted = true; loopIO.observe(v); });
+  }
+
   /* ---------- hover previews: work cards and the offer cards ---------- */
   document.querySelectorAll('.card, .offer-card').forEach(card => {
     const v = card.querySelector('video');

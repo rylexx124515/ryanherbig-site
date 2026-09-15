@@ -2,7 +2,7 @@
 """Builds website/pack/index.html, the Listing Content Pack page on the agency site.
 
 The page is the prospect-facing surface for the pack: what do I get, what does it cost, when do I
-post it. It shows one worked example, 625 North Talbot, with every piece on the page and the six
+post it. It shows one worked example, 625 North Talbot, with every piece on the page and the five
 reels playing inline. Content lives in the lists below so the next listing's page is a data swap.
 
 Assets under website/pack/assets/ are produced from the client pack folder (see the session
@@ -29,20 +29,17 @@ REELS = [
 # the great room reel (V3), which Ryan called "so lame, I just see one room".
 # V6 (fire, water, stone, wood) dropped by Ryan 2026-09-11: "zooming into nothing". Five reels.
 
-# (name, in this pack). Twelve formats; the six marked are the ones this house got.
+# (name, in this pack). 2026-09-15: Ryan cut "one room four angles", "outdoor life", "3 things you'd
+# miss in the photos" and "day to night". Eight formats; the five marked are the ones this house got.
 MENU = [
     ("Two rooms at a time", True),
     ("What the price gets you", True),
     ("Guess the price", True),
-    ("One room, four angles", False),
     ("The details", True),
     ("The listing video, vertical", True),
-    ("Outdoor life", False),
-    ("3 things you'd miss in the photos", False),
+    ("Before and after staging", False),
     ("Coming soon", False),
     ("Open house countdown", False),
-    ("Before and after staging", False),
-    ("Day to night", False),
 ]
 
 C1 = [("01_cover", "Cover"), ("02_numbers", "The numbers"), ("03_great_room", "Great room"), ("04_chefs_kitchen", "Chef's kitchen"),
@@ -61,32 +58,20 @@ STORIES = [("01_tomorrow", "Drops tomorrow"), ("02_just_listed", "Just listed"),
 CARDS = [("01_coming_soon", "Coming soon"), ("02_just_listed", "Just listed"), ("03_open_house", "Open house"),
          ("04_price_improved", "Price improved"), ("05_sold", "Sold, with the numbers")]
 
-ALBUM = [
-    ("01_photo84", "Twilight front, the scroll-stopper. Lit windows read as a home, not a listing."),
-    ("02_photo63", "The same house by day, so nobody thinks the twilight shot is hiding something."),
-    ("03_photo31", "Straight to the room that sells it. The stone fireplace wall."),
-    ("04_photo33", "The kitchen from the angle that gets island, dining and patio doors in one frame."),
-    ("05_photo44", "The red dining room, the one room with a colour anyone will remember."),
-    ("06_photo27", "The piano room, the second wow. It reads as space, not furniture."),
-    ("07_photo4", "Primary bedroom, tray ceiling, ensuite door visible."),
-    ("08_photo8", "The ensuite with the soaker tub, because four of the five baths are ensuite."),
-    ("09_photo52", "The finished lower level. Most listings stop before this."),
-    ("10_photo73", "The covered patio at its best, columns framing the yard."),
-    ("11_photo69", "The backyard, with the pool sweeping through the frame."),
-    ("12_photo91", "The aerial last. The lot is the thing you cannot get anywhere else in Windsor."),
-]
+# The twelve-photo Facebook album was dropped from this page 2026-09-15. Ryan: it is the same thing
+# as a slideshow and reading both on one page was confusing. The photos still ship in the folder.
 
 SCHED = [
     ("3 days before", "Coming soon graphic", "FB + IG"),
     ("1 day before", "Story: drops tomorrow", "Stories"),
-    ("Listing day", "The film, Just Listed carousel, Facebook album", "FB + IG"),
+    ("Listing day", "The film, and the Just Listed slideshow", "FB + IG"),
     ("Day 2", "What $1,499,900 gets you", "IG reel"),
     ("Day 4", "Guess the price", "IG + FB"),
     ("Day 5", "Story: open house", "Stories"),
     ("Day 7", "Two rooms at a time", "IG reel"),
-    ("Day 8", "Backyard oasis", "IG carousel"),
+    ("Day 8", "Backyard oasis slideshow", "FB + IG"),
     ("Day 10", "The details", "IG + FB"),
-    ("Day 11", "The other half", "FB + IG carousel"),
+    ("Day 11", "The other half slideshow", "FB + IG"),
     ("Day 14", "Story: the price", "Stories"),
     ("If the price changes", "Price improved graphic", "FB + IG"),
     ("When it sells", "Sold graphic, with the numbers", "FB + IG"),
@@ -115,13 +100,13 @@ CAPTIONS = [
     ("The details",
      "The finishes that make 625 North Talbot Road: pendant lighting over the chef's kitchen, the stunning stone fireplace, the spa-inspired ensuite, the elegant flex room, and the stone entry out front.\n\n" + FB_CORE + "\n\n" + FB_CLOSE,
      "The finishes at 625 North Talbot Road.\n$1,499,900 | South Windsor\n#WindsorRealEstate #SouthWindsor #YQG"),
-    ("C1 · Just Listed carousel",
+    ("Slideshow · Just Listed",
      "JUST LISTED | 625 North Talbot Road, Windsor\n\n" + FB_CORE + " The main floor features beautiful hand-scraped hardwood floors, a warm and inviting great room with a stone fireplace, a stunning chef-inspired kitchen with premium appliances, and a convenient guest suite.\n\nThe backyard offers a private resort-style oasis with an in-ground pool, extra-large covered patio, and lots of privacy. Triple car garage.\n\n" + FB_CLOSE,
      "JUST LISTED | 625 North Talbot Road, South Windsor\n5 bed | 5 bath | approx. 5,300 sq ft | 100 x 200 ft lot\n$1,499,900. Swipe through, then DM for a private showing.\n#JustListed #SouthWindsor #WindsorRealEstate #YQG"),
-    ("C2 · Backyard oasis",
+    ("Slideshow · Backyard oasis",
      "The backyard at 625 North Talbot Road is a private resort-style oasis: an in-ground pool with a walk-in shallow end, an extra-large covered patio, a family-friendly yard, all on a 100 x 200 foot lot in South Windsor.\n\n" + FB_CLOSE,
      "Your own private resort in South Windsor.\nIn-ground pool | covered patio | 100 x 200 ft lot\n625 North Talbot Road | $1,499,900\n#SouthWindsor #WindsorRealEstate #YQG"),
-    ("C3 · The other half",
+    ("Slideshow · The other half",
      "Five bedrooms and a fully finished lower level at 625 North Talbot Road, Windsor. A spacious primary suite, four more bedrooms, and downstairs an expansive recreation room, games room and home gym with endless possibilities for entertaining and family time.\n\n" + FB_CLOSE,
      "Five bedrooms, then the finished lower level.\n625 North Talbot Road | $1,499,900\n#WindsorRealEstate #SouthWindsor #YQG"),
     ("Graphic · Coming soon",
@@ -136,9 +121,6 @@ CAPTIONS = [
     ("Graphic · Sold",
      "SOLD | 625 North Talbot Road, South Windsor, in [n] days with [n] offers.\n\nThank you to our sellers for trusting the Verge Real Estate Team, and congratulations to the buyers.\n\nThinking of selling in South Windsor? Contact Isaac Verge for a free home evaluation: 519-564-0903.",
      "SOLD in [n] days. [n] offers.\n625 North Talbot Road, South Windsor.\nThinking of selling? DM Isaac.\n#Sold #SouthWindsor #WindsorRealEstate #YQG"),
-    ("The Facebook photo post",
-     "JUST LISTED | 625 North Talbot Road, Windsor | $1,499,900\n\n" + FB_CORE + " The main floor features beautiful hand-scraped hardwood floors, a warm and inviting great room with a stone fireplace, a stunning chef-inspired kitchen with premium appliances, and a convenient guest suite perfect for visitors or multigenerational living.\n\nThe finished basement adds extra living and entertaining space, while the sought-after location puts you close to top schools, parks, shopping, and all amenities. The backyard offers a private resort-style oasis with an in-ground pool, extra-large covered patio, and lots of privacy. The triple-car garage offers room for your toys and hobbies.\n\nTwelve photos below. Contact Isaac Verge for a private showing: 519-564-0903.",
-     "Post the carousel instead. A twelve photo album is a Facebook format."),
 ]
 
 e = html.escape
@@ -193,14 +175,6 @@ def rail_items(folder, items, ratio, w, h):
         for i, (f, lbl) in enumerate(items))
 
 
-def album_grid():
-    return "".join(
-        f'<figure class="shot reveal" style="--d:{(i % 4) * 0.06:.2f}s" data-full="assets/album/{f}.jpg" data-title="Photo {i + 1} of 12" tabindex="0" role="button" aria-label="Open photo {i + 1}">'
-        f'<div class="shot-media"><img src="assets/album/{f}.jpg" alt="" width="1600" height="1067" loading="lazy"><span class="shot-no">{i + 1:02d}</span></div>'
-        f'</figure>'
-        for i, (f, why) in enumerate(ALBUM))
-
-
 def menu_rows():
     return "".join(
         f'<li class="menu-row{" is-on" if on else ""}"><span class="menu-key">{i + 1:02d}</span><span class="menu-name">{e(name)}</span>'
@@ -235,10 +209,10 @@ PAGE = f'''<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FFFFFF">
 <title>The Listing Content Pack · Ryan Herbig</title>
-<meta name="description" content="One listing, eighteen pieces, two weeks of posts. Five vertical reels, three carousels, a Facebook album, stories, cards, captions and a posting schedule, built from the listing photos in 48 hours.">
+<meta name="description" content="One listing, seventeen pieces, two weeks of posts. Five reels built by AI from your listing photos, three slideshows for Instagram and Facebook, four stories, five graphics, a caption for each one in your voice, and a posting schedule. $350, or $250 from footage you already have.">
 <meta property="og:title" content="The Listing Content Pack · Ryan Herbig">
-<meta property="og:description" content="One listing, eighteen pieces, two weeks of posts. Built from the listing photos in 48 hours.">
-<meta property="og:image" content="https://ryanherbig.ca/pack/assets/album/01_photo84.jpg">
+<meta property="og:description" content="One listing, seventeen pieces, two weeks of posts. Built from the listing photos in 48 hours.">
+<meta property="og:image" content="https://ryanherbig.ca/pack/assets/c1/01_cover.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -262,18 +236,18 @@ PAGE = f'''<!doctype html>
 
 <main id="top">
 
-<!-- ============================ HERO ============================ -->
+<!-- ============================ PAGE HEAD ============================ -->
 <section class="hero pack-hero">
   <div class="container">
     <p class="kicker mask"><span>The content pack &middot; $350 &middot; nothing up front</span></p>
     <h1 class="hero-title">
-      <span class="mask"><span>One listing.</span></span>
-      <span class="mask"><span><em>Eighteen pieces.</em></span></span>
-      <span class="mask"><span>Two weeks of posts.</span></span>
+      <span class="mask"><span>One listing,</span></span>
+      <span class="mask"><span><em>two weeks of posts.</em></span></span>
     </h1>
     <div class="hero-row">
-      <p class="hero-sub fade">Everything one listing needs on social for two weeks, made from its photos in 48 hours,
-      captions included. This is the real pack for 625 North Talbot Road, Windsor. You see yours finished before you pay.</p>
+      <p class="hero-sub fade">Seventeen pieces for one listing, all made from the photos already on it, with
+      a written caption for every post and a schedule for putting them out. Everything below is the real pack
+      for 625 North Talbot Road in Windsor. Yours is back in 48 hours and you see it before you pay.</p>
       <div class="hero-actions fade">
         <a class="btn btn-primary" href="{MAIL}">Get a pack for your listing</a>
         <a class="btn btn-ghost" href="#reels">See the reels</a>
@@ -281,9 +255,9 @@ PAGE = f'''<!doctype html>
     </div>
     <dl class="stats fade">
       <div><dt>Reels</dt><dd><span data-count="5">0</span></dd><span class="stat-sub">18 to 24 seconds each</span></div>
-      <div><dt>Carousels</dt><dd><span data-count="3">0</span></dd><span class="stat-sub">25 slides</span></div>
-      <div><dt>Facebook album</dt><dd><span data-count="12">0</span></dd><span class="stat-sub">photos, one post</span></div>
+      <div><dt>Slideshows</dt><dd><span data-count="3">0</span></dd><span class="stat-sub">25 slides, IG and FB</span></div>
       <div><dt>Stories and graphics</dt><dd><span data-count="9">0</span></dd><span class="stat-sub">coming soon to sold</span></div>
+      <div><dt>Captions written</dt><dd><span data-count="12">0</span></dd><span class="stat-sub">one per post, in your voice</span></div>
       <div><dt>Turnaround</dt><dd>48h</dd><span class="stat-sub">from the address</span></div>
     </dl>
   </div>
@@ -293,14 +267,13 @@ PAGE = f'''<!doctype html>
 <nav class="packnav" aria-label="Jump to a part of the pack">
   <div class="container packnav-row" id="packnav">
     <a href="#reels">Reels</a>
-    <a href="#carousels">Carousels</a>
-    <a href="#branding">Branding</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#stories">Stories</a>
-    <a href="#graphics">Graphics</a>
-    <a href="#album">Album</a>
+    <a href="#how">How it's made</a>
+    <a href="#slideshows">Slideshows</a>
+    <a href="#stills">Stories and graphics</a>
+    <a href="#branding">Your branding</a>
     <a href="#menu">Formats</a>
     <a href="#schedule">Schedule</a>
+    <a href="#pricing">Pricing</a>
   </div>
 </nav>
 
@@ -310,26 +283,85 @@ PAGE = f'''<!doctype html>
     <div class="sec-head reveal">
       <p class="eyebrow">The reels</p>
       <h2>Five reels. Five different formats.</h2>
-      <p class="sec-sub"><span class="hint-hover">Hover to preview, click to watch with sound.</span><span class="hint-touch">Tap one to watch with sound.</span></p>
+      <p class="sec-sub">No two are built the same way, so a fortnight of posts never feels like the same video
+      five times. <span class="hint-hover">Hover to preview, click to watch with sound.</span><span class="hint-touch">Tap one to watch with sound.</span></p>
     </div>
     <div class="phones">{reel_cards()}
     </div>
   </div>
 </section>
 
-<!-- ============================ CAROUSELS ============================ -->
-<section class="section carousels" id="carousels">
+<!-- ============================ HOW IT IS MADE ============================ -->
+<section class="section how-made" id="how">
   <div class="container">
     <div class="sec-head reveal">
-      <p class="eyebrow">The three carousels</p>
-      <h2>Swipe through them here.</h2>
-      <p class="sec-sub">Launch day, the feature that sells the house, and the rooms nobody posts. Captions included, written the way you already write: I study your past posts and listing write-ups first.</p>
+      <p class="eyebrow">How it's made</p>
+      <h2>Your photos don't move. These do.</h2>
     </div>
-    <div class="posts reveal">{carousel("c1", "c1", C1, "Just Listed", "10 slides", CAP["C1 · Just Listed carousel"][1])}{carousel("c2", "c2", C2, "Backyard oasis", "5 slides", CAP["C2 · Backyard oasis"][1])}{carousel("c3", "c3", C3, "The other half", "10 slides", CAP["C3 · The other half"][1])}
+    <div class="made-grid">
+      <div class="made-item reveal">
+        <h3>The clips are generated, not filmed</h3>
+        <p>A listing photo is a still image. AI turns it into a moving shot, so the photo of the kitchen becomes
+        a slow push across the kitchen, and five or ten of those cut together into a reel. That is the part you
+        are paying for. It is also why there is no camera, no shoot and no day of anyone's time, and why I only
+        need the address.</p>
+      </div>
+      <div class="made-item reveal">
+        <h3>The words are copied off you</h3>
+        <p>Before anything gets written I read your last posts and your listing write-ups. The captions and the
+        text on screen are then written to match how you already sound, so the pack goes out reading like you
+        wrote it rather than like a robot did. You get every caption as text, ready to paste.</p>
+      </div>
+    </div>
+    <div class="caps reveal">
+      <div class="caps-head">
+        <p class="eyebrow">The real captions from this pack</p>
+        <p class="caps-sub">Isaac's own listing write-up went in. Pick a piece and read what came back, for
+        both networks.</p>
+      </div>
+      <div class="caps-body">
+        <div class="cap-picks" role="tablist" aria-label="Pick a piece">{picks}
+        </div>
+        <div class="cap-panels">{panels}
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ============================ SLIDESHOWS ============================ -->
+<section class="section carousels" id="slideshows">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">The slideshows</p>
+      <h2>Swipe through them here.</h2>
+      <p class="sec-sub">One swipeable post each, and each one goes up on both Instagram and Facebook. Launch
+      day, the feature that sells the house, and the rooms nobody posts.</p>
+    </div>
+    <div class="posts reveal">{carousel("c1", "c1", C1, "Just Listed", "10 slides", CAP["Slideshow · Just Listed"][1])}{carousel("c2", "c2", C2, "Backyard oasis", "5 slides", CAP["Slideshow · Backyard oasis"][1])}{carousel("c3", "c3", C3, "The other half", "10 slides", CAP["Slideshow · The other half"][1])}
+    </div>
+  </div>
+</section>
+
+<!-- ============================ STORIES AND GRAPHICS ============================ -->
+<section class="section stills" id="stills">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Stories and graphics</p>
+      <h2>Nine stills. The difference is how long they live.</h2>
+      <p class="sec-sub">A <b>story</b> fills the whole phone screen and disappears after 24 hours, so it carries
+      the day to day: it drops tomorrow, it's listed, there's an open house. A <b>graphic</b> is a normal post
+      that stays on your feed for good, so there's one for every stage the listing goes through. Graphics get
+      a written caption, stories don't need one.</p>
+    </div>
+    <p class="rail-label reveal">Four stories, one a day around the launch</p>
+    <div class="rail rail-inline">{rail_items("stories", STORIES, "tall", 1080, 1920)}
+    </div>
+    <p class="rail-label rail-label-2 reveal">Five graphics, one for each stage</p>
+    <div class="rail rail-inline">{rail_items("cards", CARDS, "wide", 1080, 1350)}
+    </div>
+  </div>
+</section>
 
 <!-- ============================ BRANDING ============================ -->
 <section class="section brand" id="branding">
@@ -337,97 +369,26 @@ PAGE = f'''<!doctype html>
     <div class="sec-head reveal">
       <p class="eyebrow">Your branding</p>
       <h2>Same brand. Cleaner.</h2>
-      <p class="sec-sub">Same logo, same red, same brokerage. The team's template on the left, the pack's version on the right.</p>
+      <p class="sec-sub">On the left, the team's own Just Listed template from an earlier listing. Then the same
+      announcement as the pack makes it, in three places it has to work. Same logo, same red, same brokerage.</p>
     </div>
-    <div class="brand-pair reveal">
-      <figure class="brand-side" data-full="assets/brand/before.jpg" data-title="Before" tabindex="0" role="button" aria-label="Open the before">
-        <img src="assets/brand/before.jpg" alt="The team's Just Listed template" width="1000" height="1000" loading="lazy">
-        <figcaption>Before</figcaption>
+    <div class="brand-set reveal">
+      <figure class="brand-side is-before" data-full="assets/brand/before.jpg" data-title="Their own template" tabindex="0" role="button" aria-label="Open their own template">
+        <img src="assets/brand/before.jpg" alt="The team's own Just Listed template" width="1000" height="1000" loading="lazy">
+        <figcaption>Their template</figcaption>
       </figure>
-      <figure class="brand-side" data-full="assets/c1/01_cover.jpg" data-title="After" tabindex="0" role="button" aria-label="Open the after">
-        <img src="assets/c1/01_cover.jpg" alt="The pack's Just Listed cover" width="1080" height="1350" loading="lazy">
-        <figcaption>After</figcaption>
+      <figure class="brand-side" data-full="assets/c1/01_cover.jpg" data-title="The pack: the slideshow cover" tabindex="0" role="button" aria-label="Open the slideshow cover">
+        <img src="assets/c1/01_cover.jpg" alt="The pack's Just Listed slideshow cover" width="1080" height="1350" loading="lazy">
+        <figcaption>The slideshow cover</figcaption>
       </figure>
-    </div>
-  </div>
-</section>
-
-<!-- ============================ PRICING ============================ -->
-<section class="section pricing" id="pricing">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow">Pricing</p>
-      <h2>One pack. Two ways to make it.</h2>
-    </div>
-    <div class="plans plans-2">
-      <article class="plan is-featured reveal">
-        <p class="plan-name">Content pack</p>
-        <p class="plan-price">$350</p>
-        <p class="plan-terms">Nothing up front, from your listing photos</p>
-        <p class="plan-desc">Everything on this page, for your listing, back in 48 hours.</p>
-        <ul class="plan-list">
-          <li>Five vertical reels</li>
-          <li>Three carousels and a Facebook album</li>
-          <li>Four Instagram stories and five ready to post graphics</li>
-          <li>Captions for every piece, in your voice</li>
-          <li>A two-week posting schedule</li>
-        </ul>
-        <p class="plan-addon">+ $100 and I post it all for you, on the schedule.</p>
-        <a class="btn btn-primary" href="{MAIL}">Get a pack</a>
-        <span class="mail-line">or write to its.rylexx@gmail.com</span>
-      </article>
-      <article class="plan reveal">
-        <p class="plan-name">Content pack, from your footage</p>
-        <p class="plan-price">$300</p>
-        <p class="plan-terms">Already have video and drone clips</p>
-        <p class="plan-desc">The same pack, cut from the footage your photographer already shot.</p>
-        <ul class="plan-list">
-          <li>Everything in the content pack, cut from your clips</li>
-          <li>Back in 48 hours, same $100 posting add-on</li>
-        </ul>
-        <a class="btn btn-ghost" href="{MAIL300}">Get the $300 pack</a>
-      </article>
-    </div>
-    <p class="plans-note reveal">Just want one vertical video? $100, any format from <a href="#menu">the menu below</a>. Want the horizontal listing video? <a href="../video/">That is $150, on its own page.</a></p>
-  </div>
-</section>
-
-
-<!-- ============================ STORIES ============================ -->
-<section class="section stills" id="stories">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow">Stories</p>
-      <h2>Four stories for launch week.</h2>
-      <p class="sec-sub">Full-screen frames for Instagram and Facebook Stories. They run for 24 hours each, one a day around the launch: drops tomorrow, just listed, open house, the price.</p>
-    </div>
-    <div class="rail rail-inline">{rail_items("stories", STORIES, "tall", 1080, 1920)}
-    </div>
-  </div>
-</section>
-
-<!-- ============================ GRAPHICS ============================ -->
-<section class="section stills" id="graphics">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow">Graphics</p>
-      <h2>Five graphics for the life of the listing.</h2>
-      <p class="sec-sub">Square posts for the feed, one for each stage: coming soon, just listed, open house, price improved, sold. Ready to post the day it happens.</p>
-    </div>
-    <div class="rail rail-inline">{rail_items("cards", CARDS, "wide", 1080, 1350)}
-    </div>
-  </div>
-</section>
-
-<!-- ============================ ALBUM ============================ -->
-<section class="section album" id="album">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow">The Facebook photo post</p>
-      <h2>Twelve photos, one post.</h2>
-      <p class="sec-sub">Facebook's version of a carousel. The photos themselves, no text on them, in the order you would show the house, with the full write-up as the post. Instagram gets the designed carousels, Facebook gets this.</p>
-    </div>
-    <div class="shots">{album_grid()}
+      <figure class="brand-side" data-full="assets/cards/02_just_listed.jpg" data-title="The pack: the feed graphic" tabindex="0" role="button" aria-label="Open the feed graphic">
+        <img src="assets/cards/02_just_listed.jpg" alt="The pack's Just Listed feed graphic" width="1080" height="1350" loading="lazy">
+        <figcaption>The feed graphic</figcaption>
+      </figure>
+      <figure class="brand-side" data-full="assets/stories/02_just_listed.jpg" data-title="The pack: the story" tabindex="0" role="button" aria-label="Open the story">
+        <img src="assets/stories/02_just_listed.jpg" alt="The pack's Just Listed story" width="1080" height="1920" loading="lazy">
+        <figcaption>The story</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -437,7 +398,7 @@ PAGE = f'''<!doctype html>
   <div class="container menu-grid">
     <div class="sec-head reveal">
       <p class="eyebrow">The menu</p>
-      <h2>Twelve formats. Your house gets the five that fit.</h2>
+      <h2>Eight formats. Your house gets the five that fit.</h2>
       <p class="sec-sub">Picked for the house, not filled in from a template.</p>
     </div>
     <ul class="menu-list reveal">{menu_rows()}
@@ -451,7 +412,7 @@ PAGE = f'''<!doctype html>
     <div class="sec-head reveal">
       <p class="eyebrow">The plan</p>
       <h2>Two weeks, already planned.</h2>
-      <p class="sec-sub">What to post on which day. The card ships in the folder.</p>
+      <p class="sec-sub">What to post on which day, and where. The card ships in the folder.</p>
     </div>
     <div class="when-grid">
       <figure class="when-card reveal" data-full="assets/schedule/schedule.jpg" data-title="The schedule card" tabindex="0" role="button" aria-label="Open the schedule card">
@@ -463,6 +424,69 @@ PAGE = f'''<!doctype html>
   </div>
 </section>
 
+<!-- ============================ PRICING ============================ -->
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Pricing</p>
+      <h2>One pack. Two ways to make it.</h2>
+      <p class="sec-sub">The difference is where the moving pictures come from. If I have to make them, it's
+      $350. If you already paid someone to shoot them, it's $250.</p>
+    </div>
+    <div class="plans plans-2">
+      <article class="plan is-featured reveal">
+        <p class="plan-flag">Most listings</p>
+        <p class="plan-name">Made from your listing photos</p>
+        <p class="plan-price">$350</p>
+        <p class="plan-terms">AI builds the moving clips from your stills</p>
+        <p class="plan-desc">You have photos and nothing else. Send the address and everything on this page gets
+        made from them.</p>
+        <ul class="plan-list">
+          <li>Five reels, generated from the still photos</li>
+          <li>Three slideshows for Instagram and Facebook</li>
+          <li>Four stories and five feed graphics</li>
+          <li>A caption for every post, written in your voice</li>
+          <li>The two-week schedule card</li>
+          <li>Back in 48 hours, nothing up front</li>
+        </ul>
+        <a class="btn btn-primary" href="{MAIL}">Get the $350 pack</a>
+        <span class="mail-line">or write to its.rylexx@gmail.com</span>
+      </article>
+      <article class="plan reveal">
+        <p class="plan-name">Made from footage you already have</p>
+        <p class="plan-price">$250</p>
+        <p class="plan-terms">Your photographer already shot the video</p>
+        <p class="plan-desc">You have drone or walk through clips already. Nothing needs generating, so I cut
+        yours into the same pieces and it's $100 less.</p>
+        <ul class="plan-list">
+          <li>The same seventeen pieces, cut from your clips</li>
+          <li>Same captions, same graphics, same schedule</li>
+          <li>Send a link to the footage, anywhere it lives</li>
+          <li>Back in 48 hours, nothing up front</li>
+        </ul>
+        <a class="btn btn-ghost" href="{MAIL300}">Get the $250 pack</a>
+      </article>
+    </div>
+    <p class="plans-note reveal">Just want one vertical video? $100, any format from <a href="#menu">the menu above</a>.
+    Want the horizontal listing video for MLS? <a href="../video/">$150 for thirty seconds, $200 for a minute.</a></p>
+  </div>
+</section>
+
+<!-- ============================ CLOSE ============================ -->
+<section class="section offer" id="get">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Get started</p>
+      <h2>Send me an address.</h2>
+      <p class="sec-sub">I pull the photos myself. The pack is back in 48 hours, you look at every piece, and
+      then you decide.</p>
+    </div>
+    <div class="offer-cta reveal">
+      <a class="btn btn-primary btn-lg" href="{MAIL}">Email me your listing address</a>
+      <span class="offer-mail">its.rylexx@gmail.com</span>
+    </div>
+  </div>
+</section>
 
 </main>
 

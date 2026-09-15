@@ -3,8 +3,8 @@
    pieces are dark and red-railed, so they read as objects placed on the page. */
 
 /* ---------- hero ---------- */
-.pack-hero{padding:164px 0 0;position:relative}
-.pack-hero .hero-title{font-size:clamp(46px,6.6vw,96px)}
+.pack-hero{padding:150px 0 0;position:relative}
+.pack-hero .hero-title{font-size:clamp(34px,4.2vw,58px);line-height:1.02}
 .pack-hero .hero-title em{font-style:normal;color:var(--accent)}
 .hero-title .mask:nth-child(3)>span{transition-delay:.25s}
 .pack-hero .hero-row{align-items:flex-start}
@@ -45,6 +45,46 @@ body.pack-page{overflow-x:clip}
 .packnav a:hover{background:var(--accent-tint);color:var(--accent-ink)}
 .packnav a.is-on{background:var(--ink);color:#fff}
 .pack-page section[id]{scroll-margin-top:118px}
+
+/* ---------- how it's made: the AI, said plainly, then the real captions ---------- */
+.how-made{background:var(--ground-alt);border-top:1px solid var(--line)}
+.made-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px 56px}
+.made-item h3{font-size:22px;letter-spacing:-.02em;margin-bottom:12px}
+.made-item p{color:var(--soft);font-size:16.5px;line-height:1.6}
+.caps{margin-top:64px;background:var(--ground);border:1px solid var(--line);border-radius:12px;padding:30px 32px 32px}
+.caps-head{margin-bottom:22px}
+.caps-head .eyebrow{margin-bottom:10px}
+.caps-sub{color:var(--soft);font-size:16px;max-width:60ch}
+.caps-body{display:grid;grid-template-columns:minmax(0,270px) minmax(0,1fr);gap:36px;align-items:start}
+.cap{background:var(--ground-alt);border-radius:8px;padding:18px 20px}
+.cap-net{display:block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.cap p{font-size:15px;line-height:1.6;color:var(--ink)}
+
+/* ---------- stories and graphics share one section now ---------- */
+.rail-label{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--mute);margin-bottom:16px}
+.rail-label-2{margin-top:52px}
+
+/* ---------- branding: one of theirs, three of ours ---------- */
+.brand-set{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:start}
+.brand-set .brand-side{margin:0;cursor:pointer}
+/* one square template, a 4:5 cover, a 4:5 graphic and a 9:16 story in one row: give every cell
+   the same box and letterbox inside it, so nothing is cropped and the row stays level */
+.brand-set .brand-side img{width:100%;aspect-ratio:4/5;object-fit:contain;border-radius:8px;border:1px solid var(--line);background:var(--ground-alt);transition:transform .4s var(--ease-out),box-shadow .4s}
+.brand-set .brand-side:hover img,.brand-set .brand-side:focus-visible img{transform:translateY(-3px);box-shadow:0 22px 44px -26px rgba(16,17,19,.4)}
+.brand-set figcaption{margin-top:10px;font-size:14px;font-weight:600;color:var(--soft)}
+.brand-set .is-before figcaption{color:var(--mute)}
+.brand-set .is-before{position:relative}
+
+@media (max-width:900px){
+  .made-grid{grid-template-columns:1fr;gap:26px}
+  .caps{margin-top:44px;padding:24px 20px 26px}
+  .caps-body{grid-template-columns:1fr;gap:20px}
+  .brand-set{grid-template-columns:1fr 1fr;gap:14px}
+  /* a full Facebook write-up is three phone screens on its own, so it scrolls in place */
+  .cap{max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .cap p{font-size:14.5px}
+  .cap-picks{max-height:172px;overflow-y:auto}
+}
 
 /* ---------- reels: five phones (six until 2026-09-11) ---------- */
 .reels{padding-top:96px}

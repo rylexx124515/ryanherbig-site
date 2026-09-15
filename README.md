@@ -130,6 +130,60 @@ Pricing shown on the site (2026-09-09): Listing video $150 pay-if-you-like · Co
 from photos, +$100 posted · Content pack from the realtor's own footage $300 · one vertical reel
 $100 as a footnote. No $200 film anywhere on the site.
 
+## 2026-09-15: Ryan's feedback pass, phone first
+
+Twenty-three items from one review. What changed, by page:
+
+**Home.** The brokerage row is gone (he called it trash: naming nine brokerages limits who thinks
+they can hire us). The "Seventeen so far" rail is gone too, because the work belongs on /video/ and
+the nav "Work" link now points there. About is no longer two lines: it is his real bio, in his words,
+including the Germany photo the picture actually shows. Step 1 no longer asks for the photographer's
+footage. Both service cards carry the new prices.
+
+**/video/.** Two claims were false and he caught both: the hero said "Every room" (it is five or ten
+clips, not every room) and "About 30 seconds" (some are a minute). New head, "The house, moving", at
+page-header size rather than a second landing hero. Pricing is now two real tiers: $150 for thirty
+seconds and five clips, $200 for a full minute and ten, with "twice the video, not twice the price"
+on the featured card and the arithmetic spelled out underneath ($300 for two short ones vs $200 for
+the long one). Clips past ten are $20. The "send me your photographer's drone footage" line is cut.
+The "Every room labelled" fact is now "Every shot labelled", which is what actually happens.
+
+**/pack/.** The big one.
+- Carousels and the Facebook album were the same thing wearing two names, so they are now one thing,
+  **slideshows**, posted to both Instagram and Facebook. The twelve-photo album section is deleted
+  (the photos still ship in the folder). Seventeen pieces, not eighteen.
+- Stories and graphics were two sections nobody could tell apart, him included. One section now,
+  headed "Nine stills. The difference is how long they live", each rail labelled by when it is used.
+- New **How it's made** section, because the AI was the value and the page never said so: the clips
+  are generated from still photos, and the captions are written to match the realtor's own past posts.
+  The caption viewer that had been built and left unrendered (`caption_ui()`, its CSS and its JS were
+  all still live) now sits under it showing the real Isaac captions for both networks.
+- Pricing moved to the end, after the work, with a proper close CTA under it. The +$100 posting
+  add-on is gone. The from-your-footage pack is **$250**, not $300, and both cards now lead with the
+  distinction he asked for: $350 means AI builds the moving clips from your stills, $250 means your
+  photographer already shot them.
+- Branding shows one of their templates against three of our pieces (slideshow cover, feed graphic,
+  story) instead of one photo beside another. Every cell is a 4:5 contain box so a square template, a
+  4:5 graphic and a 9:16 story sit level.
+- Formats culled 12 -> 8. Ryan's verdicts: "one room four angles", "outdoor life", "3 things you'd
+  miss in the photos" and "day to night" are out.
+
+**Phone weight**, since that is where realtors look. The video page pulled 5.59 MB before it had been
+scrolled, 2.5 MB of it an autoplaying demo video in the middle of the page. Videos below the fold now
+carry `class="lazy-loop"` + `data-src` and an IntersectionObserver in app.js loads and plays them on
+arrival. The mobile hero loop was re-encoded 800x600 -> 640x480 crf 28, 2.87 MB -> 1.39 MB: at the
+350 px the frame actually occupies on a phone, the three candidate encodes were indistinguishable
+side by side, so the smallest won. Per page, on load, at 390 px: home 4.17 -> 2.44 MB, video
+5.59 -> 2.32 MB, pack 1.90 -> 0.80 MB.
+
+**A claim that nearly shipped false:** the pack page said "a caption for all seventeen". The real
+`CAPTIONS.md` writes captions for the five reels, three slideshows and four graphics, and says
+outright that stories need none. It says twelve now, and the stills section says which pieces get
+one.
+
+**Deploy note:** this pass changes a binary, `assets/img/hero5-m.mp4`. The pages repo needs that file
+as well as the HTML/CSS/JS, or phones keep downloading the old 2.87 MB loop.
+
 ## 2026-09-14: five patterns taken from the competitors
 
 Five live competitor sites were screenshotted and compared against this one (Coffee & Contracts,
