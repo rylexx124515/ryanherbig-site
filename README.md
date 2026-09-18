@@ -130,6 +130,63 @@ Pricing shown on the site (2026-09-09): Listing video $150 pay-if-you-like · Co
 from photos, +$100 posted · Content pack from the realtor's own footage $300 · one vertical reel
 $100 as a footnote. No $200 film anywhere on the site.
 
+## 2026-09-18: Ryan's review of the pitch page, and the covered banner
+
+- **Plain copy everywhere.** Ryan: *"super easy to understand, don't fluff anything up."* Every line on
+  `/pack/` was cut down, the captions viewer left the pitch page (one sentence says the captions are
+  written from your past posts), and the Talbot schedule card left too: nothing from the Verge pack
+  shows on the pitch page except the four sample pieces under "What you get". The plan is a generic
+  list (`SCHED_PLAIN`, format names not house names). How it's made is three numbered steps.
+- **Stories vs graphics, made distinct.** Ryan asked twice what the difference was. Each kind now
+  carries two chips (`.kit-where`): where it shows and how long it lasts ("Story bar at the top of
+  the app" / "Gone after 24 hours" against "Your feed" / "Stays up"), and the copy says what each is
+  *for*. The hero sub spells out 5 reels, 3 slideshows, 4 stories, 5 graphics.
+- **Branding line added** to the pitch (`Your branding, cleaned up`), the Talbot page and the video
+  page's facts: we keep their look and make it sharper than their current template.
+- **/video/:** hero is "Your listing photos, turned into a video." (Ryan: "The house, moving" sounds
+  horrible); the "two 30 second videos would be $300" paragraph is gone, the $20 a clip line stays.
+- **The covered "Coming soon".** Not a site bug: in `clients/.../pack/stills/build_cards.py` the red
+  banner was emitted before the dark band, so the band painted over the banner's bottom half on all
+  five graphics. `z-index:2` on the banner, five cards re-rendered, site JPEGs refreshed.
+
+## 2026-09-17: the pack page is a pitch, the example moved to its own page
+
+Ryan: *"currently, if you were to go on this website, it just shows an example of what we did for a
+house. You need to walk them through the process."* The old `/pack/` was the worked example with the
+pitch scattered through it (How it's made in the middle, the menu near the bottom, the price last).
+Now there are two pages, both written by `pack/build_pack_page.py`:
+
+- **`/pack/`, the pitch.** Hero, then **the problem** (a listing gets posted once; same problem-first
+  pattern as the home), **what you get** (four cells framed as phone screens, one real piece from
+  625 North Talbot in each: the film hover-previews, the Just Listed slideshow is the actual swipeable
+  post stripped to its stage, a story, a graphic), a **finished-pack band** with the button to the
+  example page, **how it's made** (now three items: the clips are generated, the words are copied off
+  you, you see it before you pay) with the real captions viewer, the two weeks, pricing, close. The
+  branding comparison and the eight-format menu live on the example page only; the pricing note
+  links there.
+- **`/pack/625-north-talbot/`, the finished pack.** Everything the old page showed: five reels, three
+  slideshows, the nine stills, branding, captions (their own section now), the menu, the schedule,
+  and a close that points back to `../#pricing`. This is also the page to send the client.
+
+The jump bar on each page ends with a chip to the other page (`.packnav-out`); `pack.js` only
+lights up chips whose href starts with `#`.
+
+**The rail bug.** The 09-14 rewrite made stories and graphics two `.rail-inline` rails with the
+scrollbar hidden and no arrows (the old arrows were wired to a `#rail` id the inline rails never
+had), so on a mouse there was no way to move them and the fourth item sat half cut off. Each rail
+is now a `.railbox` with its own prev/next (`.slide-btn`, 44px), disabled at the ends and hidden
+entirely when nothing overflows (`.is-flat`) or on touch, where swiping already works.
+
+Verified in Chromium at 1440 and WebKit at 390x844: zero JS errors on both pages (WebKit's
+"Button failed to load, iconName = ...-placard" lines are its own media-controls warnings for the
+hidden `<video>`, not ours), `scrollWidth` equals the viewport, every standalone control on the
+phone at 44px or more (the slideshow dots keep the invisible hit box), the graphics rail's arrow
+scrolls it, the mini slideshow's arrow advances its counter. Pitch page on-load at 390px: **0.19 MB
+in WebKit** (21 requests, fonts and CSS; every image is lazy and Safari honours it), 1.33 MB in
+Chromium, whose lazy threshold pulls the four kit images and the poster early. The reel preview
+only loads on hover. Inline text links in the pricing note measure under 44px like any prose link;
+the 44px rule is for standalone controls.
+
 ## 2026-09-15, later: the phone audit in WebKit
 
 Ryan asked whether the site is actually optimised for phones. The earlier passes were checked in

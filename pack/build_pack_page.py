@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
-"""Builds website/pack/index.html, the Listing Content Pack page on the agency site.
+"""Builds the two Listing Content Pack pages on the agency site.
 
-The page is the prospect-facing surface for the pack: what do I get, what does it cost, when do I
-post it. It shows one worked example, 625 North Talbot, with every piece on the page and the five
-reels playing inline. Content lives in the lists below so the next listing's page is a data swap.
+- website/pack/index.html                 the pitch: what the problem is, what you get (one real piece
+                                          under each claim), how it's made, the two weeks, the price.
+- website/pack/625-north-talbot/index.html the finished pack for one house, every piece on the page.
+
+2026-09-17, Ryan: the old page was the example with the pitch scattered through it, and a realtor
+had to work out what they'd get from another realtor's listing. Now the pitch is the spine, each
+"you get X" shows one piece from 625 North Talbot as proof, and the whole pack sits one click away
+on its own page (which is also the page to send the client). Content lives in the lists below so
+the next listing's example page is a data swap.
 
 Assets under website/pack/assets/ are produced from the client pack folder (see the session
 summary for the transcode recipe) and are gitignored like the rest of the site's media.
@@ -13,6 +19,7 @@ Run: python3 build_pack_page.py
 import pathlib, html
 
 HERE = pathlib.Path(__file__).parent
+EX = "625-north-talbot"  # the example page's folder under /pack/
 MAIL = "mailto:its.rylexx@gmail.com?subject=Content%20pack&amp;body=Address%3A%0A%0AMLS%20link%20(if%20you%20have%20one)%3A%0A%0AName%20and%20brokerage%3A%0A"
 MAIL300 = "mailto:its.rylexx@gmail.com?subject=Content%20pack%20from%20my%20footage&amp;body=Address%3A%0A%0ALink%20to%20your%20footage%20(Drive%2C%20Dropbox%2C%20anything)%3A%0A%0AName%20and%20brokerage%3A%0A"
 
@@ -77,7 +84,24 @@ SCHED = [
     ("When it sells", "Sold graphic, with the numbers", "FB + IG"),
 ]
 
-# (label, Facebook, Instagram). Verbatim from the pack's CAPTIONS.md.
+# The same fortnight with the format names instead of the house's. Pitch page only (2026-09-18,
+# Ryan: nothing from the Verge pack on the main page; that all lives on the Talbot page).
+SCHED_PLAIN = [
+    ("3 days before", "Coming soon graphic", "FB + IG"),
+    ("1 day before", "Story: drops tomorrow", "Stories"),
+    ("Listing day", "The film, and the Just Listed slideshow", "FB + IG"),
+    ("Day 2", "Reel: what the price gets you", "IG reel"),
+    ("Day 4", "Reel: guess the price", "IG + FB"),
+    ("Day 5", "Story: open house", "Stories"),
+    ("Day 7", "Reel: two rooms at a time", "IG reel"),
+    ("Day 8", "Slideshow: the best part of the house", "FB + IG"),
+    ("Day 10", "Reel: the details", "IG + FB"),
+    ("Day 11", "Slideshow: the rooms nobody posts", "FB + IG"),
+    ("Day 14", "Story: the price", "Stories"),
+    ("If the price changes", "Price improved graphic", "FB + IG"),
+    ("When it sells", "Sold graphic, with the numbers", "FB + IG"),
+]
+
 # (label, Facebook, Instagram). 2026-09-14: rewritten in Isaac's voice, from his own listing page
 # copy ("Introducing this beautiful, custom-designed, and fully finished 2-storey home...").
 # Facebook gets the full write-up; Instagram gets the short version with a few local hashtags.
@@ -125,32 +149,44 @@ CAPTIONS = [
 
 e = html.escape
 CAP = {label: (fb, ig) for label, fb, ig in CAPTIONS}
+FAVICON = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%231B44E4'/><text x='50' y='70' font-size='58' font-weight='800' text-anchor='middle' fill='white' font-family='Arial'>R</text></svg>"
 
 
-def reel_cards():
-    out = []
-    for i, (k, name, dur) in enumerate(REELS):
-        out.append(f'''
-      <article class="phone reveal" style="--d:{i * 0.07:.2f}s" data-video="assets/reels/{k}.mp4" data-portrait="1" data-title="{e(name)}" tabindex="0" role="button" aria-label="Play {e(name)}">
+# ---------------------------------------------------------------- pieces
+# Every builder takes `a`, the path from the page to pack/assets/ ("assets/" on the pitch page,
+# "../assets/" on the example page).
+
+def reel_card(a, i, k, name, dur, cls="phone reveal"):
+    return f'''
+      <article class="{cls}" style="--d:{i * 0.07:.2f}s" data-video="{a}reels/{k}.mp4" data-portrait="1" data-title="{e(name)}" tabindex="0" role="button" aria-label="Play {e(name)}">
         <div class="phone-screen">
-          <img src="assets/posters/{k}.jpg" alt="" width="720" height="1280" loading="lazy">
-          <video muted playsinline loop preload="none" data-src="assets/reels/{k}_540.mp4"></video>
+          <img src="{a}posters/{k}.jpg" alt="" width="720" height="1280" loading="lazy">
+          <video muted playsinline loop preload="none" data-src="{a}reels/{k}_540.mp4"></video>
           <span class="phone-key">{i + 1:02d}</span>
           <span class="phone-dur">{dur}</span>
         </div>
         <div class="phone-meta">
           <h3>{e(name)}</h3>
         </div>
-      </article>''')
-    return "".join(out)
+      </article>'''
 
 
-def carousel(cid, folder, slides, title, sub, caption):
-    imgs = "".join(
-        f'<li class="slide" data-full="assets/{folder}/{f}.jpg" data-title="{e(title)} · {e(lbl)}">'
-        f'<img src="assets/{folder}/{f}.jpg" alt="{e(lbl)}" width="1080" height="1350" loading="lazy" draggable="false"></li>'
+def reel_cards(a):
+    return "".join(reel_card(a, i, k, name, dur) for i, (k, name, dur) in enumerate(REELS))
+
+
+def slides_html(a, folder, slides, title):
+    return "".join(
+        f'<li class="slide" data-full="{a}{folder}/{f}.jpg" data-title="{e(title)} · {e(lbl)}">'
+        f'<img src="{a}{folder}/{f}.jpg" alt="{e(lbl)}" width="1080" height="1350" loading="lazy" draggable="false"></li>'
         for f, lbl in slides)
-    dots = "".join(f'<button type="button" aria-label="Slide {i + 1}"{" class=is-on" if i == 0 else ""}></button>' for i in range(len(slides)))
+
+
+def dots_html(n):
+    return "".join(f'<button type="button" aria-label="Slide {i + 1}"{" class=is-on" if i == 0 else ""}></button>' for i in range(n))
+
+
+def carousel(a, cid, folder, slides, title, sub, caption):
     return f'''
       <article class="post" id="{cid}">
         <div class="post-head">
@@ -158,21 +194,47 @@ def carousel(cid, folder, slides, title, sub, caption):
           <span class="post-count"><b>1</b> / {len(slides)}</span>
         </div>
         <div class="post-stage">
-          <ul class="slides">{imgs}</ul>
+          <ul class="slides">{slides_html(a, folder, slides, title)}</ul>
           <button class="slide-btn slide-prev" type="button" aria-label="Previous slide">&#8592;</button>
           <button class="slide-btn slide-next" type="button" aria-label="Next slide">&#8594;</button>
         </div>
-        <div class="post-dots">{dots}</div>
+        <div class="post-dots">{dots_html(len(slides))}</div>
         <p class="post-cap">{e(caption).replace(chr(10), "<br>")}</p>
       </article>'''
 
 
-def rail_items(folder, items, ratio, w, h):
+def carousel_mini(a, folder, slides, title):
+    """The same swipeable post, stripped to the stage, for the what-you-get cell. Same JS."""
+    return f'''
+          <article class="post post-mini" aria-label="{e(title)} slideshow">
+            <div class="post-stage">
+              <ul class="slides">{slides_html(a, folder, slides, title)}</ul>
+              <span class="post-count"><b>1</b> / {len(slides)}</span>
+              <button class="slide-btn slide-prev" type="button" aria-label="Previous slide">&#8592;</button>
+              <button class="slide-btn slide-next" type="button" aria-label="Next slide">&#8594;</button>
+            </div>
+            <div class="post-dots">{dots_html(len(slides))}</div>
+          </article>'''
+
+
+def rail_items(a, folder, items, ratio, w, h):
     return "".join(
-        f'<figure class="still still-{ratio} reveal" style="--d:{i * 0.05:.2f}s" data-full="assets/{folder}/{f}.jpg" data-title="{e(lbl)}" tabindex="0" role="button" aria-label="Open {e(lbl)}">'
-        f'<div class="still-media"><img src="assets/{folder}/{f}.jpg" alt="" width="{w}" height="{h}" loading="lazy"></div>'
+        f'<figure class="still still-{ratio} reveal" style="--d:{i * 0.05:.2f}s" data-full="{a}{folder}/{f}.jpg" data-title="{e(lbl)}" tabindex="0" role="button" aria-label="Open {e(lbl)}">'
+        f'<div class="still-media"><img src="{a}{folder}/{f}.jpg" alt="" width="{w}" height="{h}" loading="lazy"></div>'
         f'<figcaption>{e(lbl)}</figcaption></figure>'
         for i, (f, lbl) in enumerate(items))
+
+
+def railbox(inner):
+    """A rail with its own arrows. 2026-09-17: the inline rails had no scrollbar and no arrows, so
+    on a mouse there was no way to move them and the fourth item sat half cut off."""
+    return f'''
+    <div class="railbox">
+      <div class="rail rail-inline">{inner}
+      </div>
+      <button class="slide-btn rail-prev" type="button" aria-label="Scroll back">&#8592;</button>
+      <button class="slide-btn rail-next" type="button" aria-label="Scroll forward">&#8594;</button>
+    </div>'''
 
 
 def menu_rows():
@@ -182,10 +244,10 @@ def menu_rows():
         for i, (name, on) in enumerate(MENU))
 
 
-def sched_rows():
+def sched_rows(rows=SCHED):
     return "".join(
         f'<li class="when-row reveal" style="--d:{i * 0.04:.2f}s"><span class="when-day">{e(d)}</span><span class="when-piece">{e(p)}</span><span class="when-ch">{e(ch)}</span></li>'
-        for i, (d, p, ch) in enumerate(SCHED))
+        for i, (d, p, ch) in enumerate(rows))
 
 
 def caption_ui():
@@ -197,45 +259,120 @@ def caption_ui():
         f'<div class="cap"><span class="cap-net">Facebook</span><p>{e(fb).replace(chr(10), "<br>")}</p></div>'
         f'<div class="cap"><span class="cap-net">Instagram</span><p>{e(ig).replace(chr(10), "<br>")}</p></div></div>'
         for i, (lbl, fb, ig) in enumerate(CAPTIONS))
-    return picks, panels
+    return f'''
+      <div class="caps-body">
+        <div class="cap-picks" role="tablist" aria-label="Pick a piece">{picks}
+        </div>
+        <div class="cap-panels">{panels}
+        </div>
+      </div>'''
 
 
-picks, panels = caption_ui()
+def stats():
+    return '''
+    <dl class="stats fade">
+      <div><dt>Reels</dt><dd><span data-count="5">0</span></dd><span class="stat-sub">short vertical videos</span></div>
+      <div><dt>Slideshows</dt><dd><span data-count="3">0</span></dd><span class="stat-sub">photo posts you swipe</span></div>
+      <div><dt>Stories</dt><dd><span data-count="4">0</span></dd><span class="stat-sub">full screen, gone in a day</span></div>
+      <div><dt>Graphics</dt><dd><span data-count="5">0</span></dd><span class="stat-sub">posts that stay up</span></div>
+      <div><dt>Ready in</dt><dd>48h</dd><span class="stat-sub">you see it, then you pay</span></div>
+    </dl>'''
 
-PAGE = f'''<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#FFFFFF">
-<title>The Listing Content Pack · Ryan Herbig</title>
-<meta name="description" content="One listing, seventeen pieces, two weeks of posts. Five reels built by AI from your listing photos, three slideshows for Instagram and Facebook, four stories, five graphics, a caption for each one in your voice, and a posting schedule. $350, or $250 from footage you already have.">
-<meta property="og:title" content="The Listing Content Pack · Ryan Herbig">
-<meta property="og:description" content="One listing, seventeen pieces, two weeks of posts. Built from the listing photos in 48 hours.">
-<meta property="og:image" content="https://ryanherbig.ca/pack/assets/c1/01_cover.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css">
-<link rel="stylesheet" href="pack.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%231B44E4'/><text x='50' y='70' font-size='58' font-weight='800' text-anchor='middle' fill='white' font-family='Arial'>R</text></svg>">
-</head>
-<body class="pack-page">
 
-<header class="topbar" id="topbar">
-  <a class="brand" href="../">Ryan Herbig<span class="brand-sub">Listing Videos</span></a>
-  <nav class="topnav">
-    <a href="../video/">Listing video</a>
-    <a href="./" aria-current="page">Content pack</a>
-    <a href="../video/#work">Work</a>
-    <a class="nav-pricing" href="#pricing">Pricing</a>
-    <a href="../#clients">Testimonials</a>
-    <a class="nav-cta" href="{MAIL}">Get a pack</a>
-  </nav>
-</header>
+# ---------------------------------------------------------------- shared sections
 
-<main id="top">
+def schedule_section():
+    return f'''
+<!-- ============================ SCHEDULE ============================ -->
+<section class="section when" id="schedule">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">The two weeks</p>
+      <h2>Two weeks, already planned.</h2>
+      <p class="sec-sub">What went up on which day, and where. The card ships in the folder.</p>
+    </div>
+    <div class="when-grid">
+      <figure class="when-card reveal" data-full="{{a}}schedule/schedule.jpg" data-title="The schedule card" tabindex="0" role="button" aria-label="Open the schedule card">
+        <img src="{{a}}schedule/schedule.jpg" alt="The two-week schedule card" width="1080" height="1350" loading="lazy">
+      </figure>
+      <ol class="when-list">{sched_rows()}
+      </ol>
+    </div>
+  </div>
+</section>'''
 
+
+def pricing_section(menu_href):
+    return f'''
+<!-- ============================ PRICING ============================ -->
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Pricing</p>
+      <h2>One pack. Two ways to make it.</h2>
+      <p class="sec-sub">$350 if I make the video from your photos. $250 if you already have video of the house.</p>
+    </div>
+    <div class="plans plans-2">
+      <article class="plan is-featured reveal">
+        <p class="plan-flag">Most listings</p>
+        <p class="plan-name">Made from your listing photos</p>
+        <p class="plan-price">$350</p>
+        <p class="plan-terms">AI builds the moving clips from your stills</p>
+        <p class="plan-desc">You have listing photos and nothing else. I make all 17 posts from them.</p>
+        <ul class="plan-list">
+          <li>5 reels, made from your photos</li>
+          <li>3 slideshows, 4 stories, 5 graphics</li>
+          <li>A caption for every post, in your voice</li>
+          <li>The two-week schedule</li>
+          <li>Ready in 48 hours, nothing up front</li>
+        </ul>
+        <a class="btn btn-primary" href="{MAIL}">Get the $350 pack</a>
+        <span class="mail-line">or write to its.rylexx@gmail.com</span>
+      </article>
+      <article class="plan reveal">
+        <p class="plan-name">Made from footage you already have</p>
+        <p class="plan-price">$250</p>
+        <p class="plan-terms">Your photographer already shot the video</p>
+        <p class="plan-desc">Your photographer already shot video. I cut it into the same 17 posts, so it
+        costs less.</p>
+        <ul class="plan-list">
+          <li>The same 17 posts, cut from your video</li>
+          <li>Same captions, same graphics, same schedule</li>
+          <li>Send a link to the video, anywhere it lives</li>
+          <li>Ready in 48 hours, nothing up front</li>
+        </ul>
+        <a class="btn btn-ghost" href="{MAIL300}">Get the $250 pack</a>
+      </article>
+    </div>
+    <p class="plans-note reveal">Just want one reel? $100, <a href="{menu_href}">pick a format</a>.
+    Want the wide listing video for MLS? <a href="{{root}}video/">$150 for 30 seconds, $200 for a minute.</a></p>
+  </div>
+</section>'''
+
+
+def close_section(eyebrow, h2, sub, extra=""):
+    return f'''
+<!-- ============================ CLOSE ============================ -->
+<section class="section offer" id="get">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2>{h2}</h2>
+      <p class="sec-sub">{sub}</p>
+    </div>
+    <div class="offer-cta reveal">
+      <a class="btn btn-primary btn-lg" href="{MAIL}">Email me your listing address</a>{extra}
+      <span class="offer-mail">its.rylexx@gmail.com</span>
+    </div>
+  </div>
+</section>'''
+
+
+# ---------------------------------------------------------------- the pitch page
+
+def pitch_body():
+    a = "assets/"
+    return f'''
 <!-- ============================ PAGE HEAD ============================ -->
 <section class="hero pack-hero">
   <div class="container">
@@ -245,21 +382,191 @@ PAGE = f'''<!doctype html>
       <span class="mask"><span><em>two weeks of posts.</em></span></span>
     </h1>
     <div class="hero-row">
-      <p class="hero-sub fade">Seventeen pieces for one listing, all made from the photos already on it, with
-      a written caption for every post and a schedule for putting them out. Everything below is the real pack
-      for 625 North Talbot Road in Windsor. Yours is back in 48 hours and you see it before you pay.</p>
+      <p class="hero-sub fade">I turn your listing photos into 17 posts: 5 reels, 3 slideshows, 4 stories and
+      5 graphics. Each one comes with a caption and a day to post it. Ready in 48 hours. You see all of it
+      before you pay.</p>
       <div class="hero-actions fade">
         <a class="btn btn-primary" href="{MAIL}">Get a pack for your listing</a>
-        <a class="btn btn-ghost" href="#reels">See the reels</a>
+        <a class="btn btn-ghost" href="{EX}/">See a real one</a>
+      </div>
+    </div>{stats()}
+  </div>
+</section>
+
+<!-- ============================ JUMP BAR ============================ -->
+<nav class="packnav" aria-label="Jump to a part of the page">
+  <div class="container packnav-row" id="packnav">
+    <a href="#kit">What you get</a>
+    <a href="#how">How it works</a>
+    <a href="#schedule">The schedule</a>
+    <a href="#pricing">Pricing</a>
+    <a class="packnav-out" href="{EX}/">A real pack &rarr;</a>
+  </div>
+</nav>
+
+<!-- ============================ THE PROBLEM ============================ -->
+<section class="section problem" id="problem">
+  <div class="container problem-grid">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Why</p>
+      <h2>A listing gets posted once.</h2>
+    </div>
+    <div class="problem-copy reveal">
+      <p>The house goes live. One post goes up. Then nothing.</p>
+      <p>Two weeks later it is still for sale, and nobody has seen it since day one. Making something new
+      every few days takes time nobody has.</p>
+      <p><strong>The pack is those two weeks, made in advance.</strong> You get a folder of posts and a day to
+      post each one. Nothing to shoot. Nothing to write.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WHAT YOU GET ============================ -->
+<section class="section kit" id="kit">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">What you get</p>
+      <h2>17 posts. Four kinds.</h2>
+      <p class="sec-sub">Real examples from one pack.
+      <span class="hint-hover">Hover the reel to preview it, click anything to see it big.</span><span class="hint-touch">Tap anything to see it big.</span></p>
+    </div>
+    <div class="kit-grid">
+      <div class="kit-item reveal" style="--d:0s">{reel_card(a, 0, *REELS[0], cls="phone kit-phone")}
+        <h3>5 reels</h3>
+        <p class="kit-where"><span>Reels tab and your feed</span><span>Stays up</span></p>
+        <p>Short vertical videos, 18 to 24 seconds. Each one is a different style, so they never look like the
+        same video five times.</p>
+      </div>
+      <div class="kit-item reveal" style="--d:.07s">
+        <div class="kit-media">{carousel_mini(a, "c1", C1, "Just Listed")}
+        </div>
+        <h3>3 slideshows</h3>
+        <p class="kit-where"><span>Your feed</span><span>Stays up</span></p>
+        <p>Photo posts you swipe through. One for launch day, one for the best part of the house, one for the
+        rooms nobody posts.</p>
+      </div>
+      <div class="kit-item reveal" style="--d:.14s">
+        <div class="kit-media" data-full="{a}stories/02_just_listed.jpg" data-title="Story · Just listed" tabindex="0" role="button" aria-label="Open the Just listed story">
+          <img src="{a}stories/02_just_listed.jpg" alt="The Just listed story" width="1080" height="1920" loading="lazy">
+        </div>
+        <h3>4 stories</h3>
+        <p class="kit-where"><span>Story bar at the top of the app</span><span>Gone after 24 hours</span></p>
+        <p>For the small updates you don't want sitting on your page forever. Drops tomorrow. Open house
+        this weekend. The price.</p>
+      </div>
+      <div class="kit-item reveal" style="--d:.21s">
+        <div class="kit-media is-45" data-full="{a}cards/01_coming_soon.jpg" data-title="Graphic · Coming soon" tabindex="0" role="button" aria-label="Open the Coming soon graphic">
+          <img src="{a}cards/01_coming_soon.jpg" alt="The Coming soon graphic" width="1080" height="1350" loading="lazy">
+        </div>
+        <h3>5 graphics</h3>
+        <p class="kit-where"><span>Your feed</span><span>Stays up</span></p>
+        <p>For the big moments that should stay on your page. Coming soon. Just listed. Open house. Price
+        improved. Sold.</p>
       </div>
     </div>
-    <dl class="stats fade">
-      <div><dt>Reels</dt><dd><span data-count="5">0</span></dd><span class="stat-sub">18 to 24 seconds each</span></div>
-      <div><dt>Slideshows</dt><dd><span data-count="3">0</span></dd><span class="stat-sub">25 slides, IG and FB</span></div>
-      <div><dt>Stories and graphics</dt><dd><span data-count="9">0</span></dd><span class="stat-sub">coming soon to sold</span></div>
-      <div><dt>Captions written</dt><dd><span data-count="12">0</span></dd><span class="stat-sub">one per post, in your voice</span></div>
-      <div><dt>Turnaround</dt><dd>48h</dd><span class="stat-sub">from the address</span></div>
-    </dl>
+    <div class="kit-extra reveal">
+      <div class="kit-extra-item">
+        <h3>A caption for every post</h3>
+        <p>I read your past posts first. Then the captions get written to sound like you. You copy and paste.</p>
+      </div>
+      <div class="kit-extra-item">
+        <h3>A day for every post</h3>
+        <p>A simple two-week card: what to post, which day, which app. <a href="#schedule">See the plan.</a></p>
+      </div>
+      <div class="kit-extra-item">
+        <h3>Your branding, cleaned up</h3>
+        <p>Your logo, your colours, your fonts. I keep your look and make it sharper than your current
+        template.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ THE EXAMPLE ============================ -->
+<section class="section example" id="example">
+  <div class="container example-grid">
+    <div class="reveal">
+      <p class="eyebrow">A real pack</p>
+      <h2>See one for a real house.</h2>
+      <p class="sec-sub">All 17 posts for one listing in Windsor, with every caption, on one page.</p>
+      <a class="btn btn-primary example-btn" href="{EX}/">Open the pack</a>
+    </div>
+    <a class="example-thumbs reveal" href="{EX}/" aria-label="Open the pack for 625 North Talbot" tabindex="-1">
+      <span class="still-media"><img src="{a}posters/V5.jpg" alt="" width="720" height="1280" loading="lazy"></span>
+      <span class="still-media"><img src="{a}c2/01_cover.jpg" alt="" width="1080" height="1350" loading="lazy"></span>
+      <span class="still-media"><img src="{a}stories/03_open_house.jpg" alt="" width="1080" height="1920" loading="lazy"></span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================ HOW IT WORKS ============================ -->
+<section class="section how-made" id="how">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">How it works</p>
+      <h2>Three steps.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <span class="step-no">1</span>
+        <h3>Send me the address</h3>
+        <p>That's all. I pull the photos off the listing myself.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-no">2</span>
+        <h3>AI turns the photos into video</h3>
+        <p>A photo of the kitchen becomes a slow move through the kitchen. Five or ten of those make a reel.
+        No camera, no shoot, no one coming to the house.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-no">3</span>
+        <h3>You get a folder in 48 hours</h3>
+        <p>Videos, images, captions and the schedule. Look at everything, ask for changes, then pay.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SCHEDULE ============================ -->
+<section class="section when" id="schedule">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">The schedule</p>
+      <h2>Two weeks, already planned.</h2>
+      <p class="sec-sub">What goes up on which day, and where. It comes as a card in the folder.</p>
+    </div>
+    <ol class="when-list when-solo">{sched_rows(SCHED_PLAIN)}
+    </ol>
+  </div>
+</section>
+{pricing_section(f"{EX}/#menu").replace("{root}", "../")}
+{close_section("Get started", "Send me an address.",
+               "Ready in 48 hours. You look at every piece, then you pay.")}
+'''
+
+
+# ---------------------------------------------------------------- the example page
+
+def example_body():
+    a = "../assets/"
+    return f'''
+<!-- ============================ PAGE HEAD ============================ -->
+<section class="hero pack-hero">
+  <div class="container">
+    <p class="kicker mask"><span>A finished pack &middot; South Windsor &middot; $350</span></p>
+    <h1 class="hero-title">
+      <span class="mask"><span>The pack for</span></span>
+      <span class="mask"><span><em>625 North Talbot Road.</em></span></span>
+    </h1>
+    <div class="hero-row">
+      <p class="hero-sub fade">A real pack for a real listing in South Windsor. Everything on this page was made
+      from the listing photos: 5 reels, 3 slideshows, 4 stories, 5 graphics, a caption for each post, and the
+      two-week schedule. This is what comes back in the folder.</p>
+      <div class="hero-actions fade">
+        <a class="btn btn-primary" href="{MAIL}">Get a pack for your listing</a>
+        <a class="btn btn-ghost" href="../">What a pack is</a>
+      </div>
+    </div>{stats()}
   </div>
 </section>
 
@@ -267,13 +574,13 @@ PAGE = f'''<!doctype html>
 <nav class="packnav" aria-label="Jump to a part of the pack">
   <div class="container packnav-row" id="packnav">
     <a href="#reels">Reels</a>
-    <a href="#how">How it's made</a>
     <a href="#slideshows">Slideshows</a>
     <a href="#stills">Stories and graphics</a>
-    <a href="#branding">Your branding</a>
+    <a href="#branding">Branding</a>
+    <a href="#captions">Captions</a>
     <a href="#menu">Formats</a>
     <a href="#schedule">Schedule</a>
-    <a href="#pricing">Pricing</a>
+    <a class="packnav-out" href="../#pricing">Pricing &rarr;</a>
   </div>
 </nav>
 
@@ -286,45 +593,7 @@ PAGE = f'''<!doctype html>
       <p class="sec-sub">No two are built the same way, so a fortnight of posts never feels like the same video
       five times. <span class="hint-hover">Hover to preview, click to watch with sound.</span><span class="hint-touch">Tap one to watch with sound.</span></p>
     </div>
-    <div class="phones">{reel_cards()}
-    </div>
-  </div>
-</section>
-
-<!-- ============================ HOW IT IS MADE ============================ -->
-<section class="section how-made" id="how">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow">How it's made</p>
-      <h2>Your photos don't move. These do.</h2>
-    </div>
-    <div class="made-grid">
-      <div class="made-item reveal">
-        <h3>The clips are generated, not filmed</h3>
-        <p>A listing photo is a still image. AI turns it into a moving shot, so the photo of the kitchen becomes
-        a slow push across the kitchen, and five or ten of those cut together into a reel. That is the part you
-        are paying for. It is also why there is no camera, no shoot and no day of anyone's time, and why I only
-        need the address.</p>
-      </div>
-      <div class="made-item reveal">
-        <h3>The words are copied off you</h3>
-        <p>Before anything gets written I read your last posts and your listing write-ups. The captions and the
-        text on screen are then written to match how you already sound, so the pack goes out reading like you
-        wrote it rather than like a robot did. You get every caption as text, ready to paste.</p>
-      </div>
-    </div>
-    <div class="caps reveal">
-      <div class="caps-head">
-        <p class="eyebrow">The real captions from this pack</p>
-        <p class="caps-sub">Isaac's own listing write-up went in. Pick a piece and read what came back, for
-        both networks.</p>
-      </div>
-      <div class="caps-body">
-        <div class="cap-picks" role="tablist" aria-label="Pick a piece">{picks}
-        </div>
-        <div class="cap-panels">{panels}
-        </div>
-      </div>
+    <div class="phones">{reel_cards(a)}
     </div>
   </div>
 </section>
@@ -338,7 +607,7 @@ PAGE = f'''<!doctype html>
       <p class="sec-sub">One swipeable post each, and each one goes up on both Instagram and Facebook. Launch
       day, the feature that sells the house, and the rooms nobody posts.</p>
     </div>
-    <div class="posts reveal">{carousel("c1", "c1", C1, "Just Listed", "10 slides", CAP["Slideshow · Just Listed"][1])}{carousel("c2", "c2", C2, "Backyard oasis", "5 slides", CAP["Slideshow · Backyard oasis"][1])}{carousel("c3", "c3", C3, "The other half", "10 slides", CAP["Slideshow · The other half"][1])}
+    <div class="posts reveal">{carousel(a, "c1", "c1", C1, "Just Listed", "10 slides", CAP["Slideshow · Just Listed"][1])}{carousel(a, "c2", "c2", C2, "Backyard oasis", "5 slides", CAP["Slideshow · Backyard oasis"][1])}{carousel(a, "c3", "c3", C3, "The other half", "10 slides", CAP["Slideshow · The other half"][1])}
     </div>
   </div>
 </section>
@@ -348,18 +617,14 @@ PAGE = f'''<!doctype html>
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow">Stories and graphics</p>
-      <h2>Nine stills. The difference is how long they live.</h2>
-      <p class="sec-sub">A <b>story</b> fills the whole phone screen and disappears after 24 hours, so it carries
-      the day to day: it drops tomorrow, it's listed, there's an open house. A <b>graphic</b> is a normal post
-      that stays on your feed for good, so there's one for every stage the listing goes through. Graphics get
-      a written caption, stories don't need one.</p>
+      <h2>Four stories, five graphics.</h2>
+      <p class="sec-sub">A <b>story</b> goes in the story bar at the top of the app and is gone after 24 hours.
+      It's for the small updates: drops tomorrow, open house, the price. A <b>graphic</b> is a normal post that
+      stays on your page. It's for the big moments: coming soon, just listed, open house, price improved, sold.
+      Graphics get a caption, stories don't need one.</p>
     </div>
-    <p class="rail-label reveal">Four stories, one a day around the launch</p>
-    <div class="rail rail-inline">{rail_items("stories", STORIES, "tall", 1080, 1920)}
-    </div>
-    <p class="rail-label rail-label-2 reveal">Five graphics, one for each stage</p>
-    <div class="rail rail-inline">{rail_items("cards", CARDS, "wide", 1080, 1350)}
-    </div>
+    <p class="rail-label reveal">Four stories, one a day around the launch</p>{railbox(rail_items(a, "stories", STORIES, "tall", 1080, 1920))}
+    <p class="rail-label rail-label-2 reveal">Five graphics, one for each stage</p>{railbox(rail_items(a, "cards", CARDS, "wide", 1080, 1350))}
   </div>
 </section>
 
@@ -367,28 +632,43 @@ PAGE = f'''<!doctype html>
 <section class="section brand" id="branding">
   <div class="container">
     <div class="sec-head reveal">
-      <p class="eyebrow">Your branding</p>
-      <h2>Same brand. Cleaner.</h2>
+      <p class="eyebrow">The branding</p>
+      <h2>Your branding, cleaned up.</h2>
       <p class="sec-sub">On the left, the team's own Just Listed template from an earlier listing. Then the same
-      announcement as the pack makes it, in three places it has to work. Same logo, same red, same brokerage.</p>
+      announcement the way the pack makes it. Same logo, same red, same brokerage. I keep your look and make it
+      sharper.</p>
     </div>
     <div class="brand-set reveal">
-      <figure class="brand-side is-before" data-full="assets/brand/before.jpg" data-title="Their own template" tabindex="0" role="button" aria-label="Open their own template">
-        <img src="assets/brand/before.jpg" alt="The team's own Just Listed template" width="1000" height="1000" loading="lazy">
+      <figure class="brand-side is-before" data-full="{a}brand/before.jpg" data-title="Their own template" tabindex="0" role="button" aria-label="Open their own template">
+        <img src="{a}brand/before.jpg" alt="The team's own Just Listed template" width="1000" height="1000" loading="lazy">
         <figcaption>Their template</figcaption>
       </figure>
-      <figure class="brand-side" data-full="assets/c1/01_cover.jpg" data-title="The pack: the slideshow cover" tabindex="0" role="button" aria-label="Open the slideshow cover">
-        <img src="assets/c1/01_cover.jpg" alt="The pack's Just Listed slideshow cover" width="1080" height="1350" loading="lazy">
+      <figure class="brand-side" data-full="{a}c1/01_cover.jpg" data-title="The pack: the slideshow cover" tabindex="0" role="button" aria-label="Open the slideshow cover">
+        <img src="{a}c1/01_cover.jpg" alt="The pack's Just Listed slideshow cover" width="1080" height="1350" loading="lazy">
         <figcaption>The slideshow cover</figcaption>
       </figure>
-      <figure class="brand-side" data-full="assets/cards/02_just_listed.jpg" data-title="The pack: the feed graphic" tabindex="0" role="button" aria-label="Open the feed graphic">
-        <img src="assets/cards/02_just_listed.jpg" alt="The pack's Just Listed feed graphic" width="1080" height="1350" loading="lazy">
+      <figure class="brand-side" data-full="{a}cards/02_just_listed.jpg" data-title="The pack: the feed graphic" tabindex="0" role="button" aria-label="Open the feed graphic">
+        <img src="{a}cards/02_just_listed.jpg" alt="The pack's Just Listed feed graphic" width="1080" height="1350" loading="lazy">
         <figcaption>The feed graphic</figcaption>
       </figure>
-      <figure class="brand-side" data-full="assets/stories/02_just_listed.jpg" data-title="The pack: the story" tabindex="0" role="button" aria-label="Open the story">
-        <img src="assets/stories/02_just_listed.jpg" alt="The pack's Just Listed story" width="1080" height="1920" loading="lazy">
+      <figure class="brand-side" data-full="{a}stories/02_just_listed.jpg" data-title="The pack: the story" tabindex="0" role="button" aria-label="Open the story">
+        <img src="{a}stories/02_just_listed.jpg" alt="The pack's Just Listed story" width="1080" height="1920" loading="lazy">
         <figcaption>The story</figcaption>
       </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CAPTIONS ============================ -->
+<section class="section how-made" id="captions">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="eyebrow">The captions</p>
+      <h2>A caption for every post, in his voice.</h2>
+      <p class="sec-sub">The realtor's own listing write-up went in. Pick a piece and read what came back, for
+      both networks. They ship as text, ready to paste.</p>
+    </div>
+    <div class="caps caps-flat reveal">{caption_ui()}
     </div>
   </div>
 </section>
@@ -398,102 +678,64 @@ PAGE = f'''<!doctype html>
   <div class="container menu-grid">
     <div class="sec-head reveal">
       <p class="eyebrow">The menu</p>
-      <h2>Eight formats. Your house gets the five that fit.</h2>
+      <h2>Eight formats. This house got the five that fit.</h2>
       <p class="sec-sub">Picked for the house, not filled in from a template.</p>
     </div>
     <ul class="menu-list reveal">{menu_rows()}
     </ul>
   </div>
 </section>
+{schedule_section().replace("{a}", a)}
+{close_section("Your listing", "Want this for yours?",
+               "$350 made from your listing photos, or $250 if you already have video. Ready in 48 hours. You see it, then you pay.",
+               '\n      <a class="btn btn-ghost btn-lg" href="../#pricing">See the pricing</a>')}
+'''
 
-<!-- ============================ SCHEDULE ============================ -->
-<section class="section when" id="schedule">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow">The plan</p>
-      <h2>Two weeks, already planned.</h2>
-      <p class="sec-sub">What to post on which day, and where. The card ships in the folder.</p>
-    </div>
-    <div class="when-grid">
-      <figure class="when-card reveal" data-full="assets/schedule/schedule.jpg" data-title="The schedule card" tabindex="0" role="button" aria-label="Open the schedule card">
-        <img src="assets/schedule/schedule.jpg" alt="The two-week schedule card" width="1080" height="1350" loading="lazy">
-      </figure>
-      <ol class="when-list">{sched_rows()}
-      </ol>
-    </div>
-  </div>
-</section>
 
-<!-- ============================ PRICING ============================ -->
-<section class="section pricing" id="pricing">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow">Pricing</p>
-      <h2>One pack. Two ways to make it.</h2>
-      <p class="sec-sub">The difference is where the moving pictures come from. If I have to make them, it's
-      $350. If you already paid someone to shoot them, it's $250.</p>
-    </div>
-    <div class="plans plans-2">
-      <article class="plan is-featured reveal">
-        <p class="plan-flag">Most listings</p>
-        <p class="plan-name">Made from your listing photos</p>
-        <p class="plan-price">$350</p>
-        <p class="plan-terms">AI builds the moving clips from your stills</p>
-        <p class="plan-desc">You have photos and nothing else. Send the address and everything on this page gets
-        made from them.</p>
-        <ul class="plan-list">
-          <li>Five reels, generated from the still photos</li>
-          <li>Three slideshows for Instagram and Facebook</li>
-          <li>Four stories and five feed graphics</li>
-          <li>A caption for every post, written in your voice</li>
-          <li>The two-week schedule card</li>
-          <li>Back in 48 hours, nothing up front</li>
-        </ul>
-        <a class="btn btn-primary" href="{MAIL}">Get the $350 pack</a>
-        <span class="mail-line">or write to its.rylexx@gmail.com</span>
-      </article>
-      <article class="plan reveal">
-        <p class="plan-name">Made from footage you already have</p>
-        <p class="plan-price">$250</p>
-        <p class="plan-terms">Your photographer already shot the video</p>
-        <p class="plan-desc">You have drone or walk through clips already. Nothing needs generating, so I cut
-        yours into the same pieces and it's $100 less.</p>
-        <ul class="plan-list">
-          <li>The same seventeen pieces, cut from your clips</li>
-          <li>Same captions, same graphics, same schedule</li>
-          <li>Send a link to the footage, anywhere it lives</li>
-          <li>Back in 48 hours, nothing up front</li>
-        </ul>
-        <a class="btn btn-ghost" href="{MAIL300}">Get the $250 pack</a>
-      </article>
-    </div>
-    <p class="plans-note reveal">Just want one vertical video? $100, any format from <a href="#menu">the menu above</a>.
-    Want the horizontal listing video for MLS? <a href="../video/">$150 for thirty seconds, $200 for a minute.</a></p>
-  </div>
-</section>
+# ---------------------------------------------------------------- the shell
 
-<!-- ============================ CLOSE ============================ -->
-<section class="section offer" id="get">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="eyebrow">Get started</p>
-      <h2>Send me an address.</h2>
-      <p class="sec-sub">I pull the photos myself. The pack is back in 48 hours, you look at every piece, and
-      then you decide.</p>
-    </div>
-    <div class="offer-cta reveal">
-      <a class="btn btn-primary btn-lg" href="{MAIL}">Email me your listing address</a>
-      <span class="offer-mail">its.rylexx@gmail.com</span>
-    </div>
-  </div>
-</section>
+def page(body, *, root, pack, title, desc, og, current):
+    """root: path to the site root; pack: path to /pack/; current: 'pitch' or 'example'."""
+    return f'''<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:image" content="https://ryanherbig.ca/pack/assets/{og}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{root}styles.css">
+<link rel="stylesheet" href="{pack}pack.css">
+<link rel="icon" href="{FAVICON}">
+</head>
+<body class="pack-page">
 
+<header class="topbar" id="topbar">
+  <a class="brand" href="{root}">Ryan Herbig<span class="brand-sub">Listing Videos</span></a>
+  <nav class="topnav">
+    <a href="{root}video/">Listing video</a>
+    <a href="{pack}"{' aria-current="page"' if current == "pitch" else ""}>Content pack</a>
+    <a href="{root}video/#work">Work</a>
+    <a class="nav-pricing" href="{pack}#pricing">Pricing</a>
+    <a href="{root}#clients">Testimonials</a>
+    <a class="nav-cta" href="{MAIL}">Get a pack</a>
+  </nav>
+</header>
+
+<main id="top">
+{body}
 </main>
 
 <footer class="footer">
   <div class="container footer-row">
     <span>&copy; 2026 Ryan Herbig &middot; LaSalle, Ontario</span>
-    <a href="../">Back to the main site</a>
+    <a href="{root}">Back to the main site</a>
     <a href="mailto:its.rylexx@gmail.com">its.rylexx@gmail.com</a>
   </div>
 </footer>
@@ -508,12 +750,27 @@ PAGE = f'''<!doctype html>
   </div>
 </div>
 
-<script src="pack.js"></script>
+<script src="{pack}pack.js"></script>
 </body>
 </html>
 '''
 
-out = HERE / "index.html"
-out.write_text(PAGE)
-bad = [c for c in PAGE if c in "—–"]
-print("wrote", out, len(PAGE) // 1024, "KB", "dashes:", len(bad))
+
+PAGES = {
+    HERE / "index.html": page(
+        pitch_body(), root="../", pack="./", current="pitch",
+        title="The Listing Content Pack · Ryan Herbig",
+        desc="One listing, seventeen pieces, two weeks of posts. Five reels built by AI from your listing photos, three slideshows for Instagram and Facebook, four stories, five graphics, a caption for each one in your voice, and a posting schedule. $350, or $250 from footage you already have.",
+        og="c1/01_cover.jpg"),
+    HERE / EX / "index.html": page(
+        example_body(), root="../../", pack="../", current="example",
+        title="The pack for 625 North Talbot Road · Ryan Herbig",
+        desc="A finished Listing Content Pack, every piece on one page: five reels, three slideshows, four stories, five graphics, the captions and the two-week schedule, all made from the listing photos.",
+        og="posters/F1.jpg"),
+}
+
+for out, src in PAGES.items():
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(src)
+    bad = [c for c in src if c in "—–"]
+    print("wrote", out.relative_to(HERE.parent), len(src) // 1024, "KB", "dashes:", len(bad))

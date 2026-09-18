@@ -14,7 +14,8 @@
 
   /* ---------- top bar hairline + which piece type you're looking at ---------- */
   const topbar = document.getElementById('topbar');
-  const jumps = [...document.querySelectorAll('#packnav a')].map(a => ({
+  // only the on-page anchors light up; the last chip on each page leads to the other page
+  const jumps = [...document.querySelectorAll('#packnav a')].filter(a => a.getAttribute('href').startsWith('#')).map(a => ({
     a, section: document.querySelector(a.getAttribute('href'))
   })).filter(j => j.section);
   const markJump = () => {
@@ -124,17 +125,27 @@
     paint();
   });
 
-  /* ---------- stills rail arrows ---------- */
-  const rail = document.getElementById('rail');
-  if (rail && document.getElementById('railPrev')) {
-  const railStep = dir => {
-    const first = rail.querySelector('.still');
-    const step = first ? first.getBoundingClientRect().width + 20 : 300;
-    rail.scrollBy({ left: dir * step * 2, behavior: reduced ? 'auto' : 'smooth' });
-  };
-  document.getElementById('railPrev').addEventListener('click', () => railStep(-1));
-  document.getElementById('railNext').addEventListener('click', () => railStep(1));
-  }
+  /* ---------- stills rails: each has its own arrows, hidden when nothing overflows ---------- */
+  document.querySelectorAll('.railbox').forEach(box => {
+    const rail = box.querySelector('.rail');
+    const prev = box.querySelector('.rail-prev');
+    const next = box.querySelector('.rail-next');
+    const step = () => {
+      const first = rail.querySelector('.still');
+      return first ? first.getBoundingClientRect().width + 22 : 300;
+    };
+    const paint = () => {
+      const max = rail.scrollWidth - rail.clientWidth;
+      box.classList.toggle('is-flat', max <= 2);
+      prev.disabled = rail.scrollLeft <= 2;
+      next.disabled = rail.scrollLeft >= max - 2;
+    };
+    prev.addEventListener('click', () => rail.scrollBy({ left: -step() * 2, behavior: reduced ? 'auto' : 'smooth' }));
+    next.addEventListener('click', () => rail.scrollBy({ left: step() * 2, behavior: reduced ? 'auto' : 'smooth' }));
+    rail.addEventListener('scroll', paint, { passive: true });
+    window.addEventListener('resize', paint);
+    paint();
+  });
 
   /* ---------- captions picker ---------- */
   const picks = [...document.querySelectorAll('.cap-picks button')];
