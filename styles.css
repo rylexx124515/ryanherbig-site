@@ -309,7 +309,7 @@ body.is-locked{overflow:hidden;position:fixed;inset:0;width:100%}
   body{font-size:16px}
   .section{padding:64px 0}
   .topbar{padding:14px var(--gutter)}
-  .topnav a:not(.nav-cta):not(.nav-pricing){display:none}
+  .topnav a:not(.nav-cta):not(.nav-sig){display:none}
   .topnav .nav-pricing{font-size:14px}
   .brand-sub{display:none}
   .hero{padding-top:112px}
@@ -524,3 +524,5 @@ body.is-locked{overflow:hidden;position:fixed;inset:0;width:100%}
   .card-media{transition:none}
   .btn:hover{transform:none}
 }
+
+.brand-mark{width:26px;height:26px;border-radius:7px;flex:0 0 26px;margin-right:-1px}
